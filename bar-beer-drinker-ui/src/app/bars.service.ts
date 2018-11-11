@@ -3,11 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Bar {
-  name: string;
-  license: string;
-  city: string;
-  phone: string;
-  addr: string;
+  barName: string;
+  barLicense: string;
+  State: string;
 }
 
 export interface BarMenuItem {
