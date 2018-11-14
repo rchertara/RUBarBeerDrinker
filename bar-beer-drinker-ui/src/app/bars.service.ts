@@ -11,8 +11,8 @@ export interface Bar {
 export interface BarMenuItem {
   beer: string;
   manf: string;
-  price: number;
-  likes: number;
+  price: string;
+  likes: string;
 }
 
 @Injectable({

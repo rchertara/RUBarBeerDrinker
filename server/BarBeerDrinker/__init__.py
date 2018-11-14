@@ -28,6 +28,8 @@ def find_bar(name):
         return make_response(str(e), 500)
 
 
+
+
 @app.route("/api/beers_cheaper_than", methods=["POST"])
 def find_beers_cheaper_than():
     body = json.loads(request.data)
@@ -37,17 +39,9 @@ def find_beers_cheaper_than():
 
 @app.route('/api/menu/<name>', methods=['GET'])
 def get_menu(name):
-    try:
-        if name is None:
-            raise ValueError('Bar is not specified.')
-        bar = database.find_bar(name)
-        if bar is None:
-            return make_response("No bar found with the given name.", 404)
-        return jsonify(database.get_bar_menu(name))
-    except ValueError as e:
-        return make_response(str(e), 400)
-    except Exception as e:
-        return make_response(str(e), 500)
+    return jsonify(database.get_sells())
+
+
 
 
 @app.route("/api/bar-cities", methods=["GET"])

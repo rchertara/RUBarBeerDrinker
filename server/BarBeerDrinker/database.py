@@ -10,10 +10,15 @@ def get_bars():
         rs = con.execute("SELECT * from bars;")
         return [dict(row) for row in rs]
 
+def get_sells():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from newSellsTable where barLicense = 'BL127';")
+        return [dict(row) for row in rs]
+
 def find_bar(name):
     with engine.connect() as con:
         query = sql.text(
-            "SELECT name, license, city, phone, addr FROM bars WHERE name = :name;"
+            "SELECT * FROM bars WHERE barName = :name;"
         )
 
         rs = con.execute(query, name=name)
@@ -35,22 +40,17 @@ def filter_beers(max_price):
         return results
 
 
-def get_bar_menu(bar_name):
+def get_bar_menu(bar_license):
     with engine.connect() as con:
         query = sql.text(
-            'SELECT a.bar, a.beer, a.price, b.manf, coalesce(c.like_count, 0) as likes \
-                FROM sells as a \
-                JOIN beers AS b \
-                ON a.beer = b.name \
-                LEFT OUTER JOIN (SELECT beer, count(*) as like_count FROM likes GROUP BY beer) as c \
-                ON a.beer = c.beer \
-                WHERE a.bar = :bar; \
-            ')
-        rs = con.execute(query, bar=bar_name)
+            "SELECT * from newSellsTable where barLicense = 'BL127';"
+        )
+        rs = con.execute(query,bar_license)
         results = [dict(row) for row in rs]
-        for i, _ in enumerate(results):
-            results[i]['price'] = float(results[i]['price'])
         return results
+        #for i, _ in enumerate(results):
+           # results[i]['Price'] = float(results[i]['Price'])
+        
 
 
 def get_bars_selling(beer):
@@ -86,11 +86,10 @@ def get_bar_cities():
         return [row['city'] for row in rs]
 
 
+"""Gets a list of beer names from the beers table."""
 def get_beers():
-    """Gets a list of beer names from the beers table."""
-
     with engine.connect() as con:
-        rs = con.execute('SELECT name, manf FROM beers;')
+        rs = con.execute("SELECT name FROM ItemsTable where Flag='B';")
         return [dict(row) for row in rs]
 
 
