@@ -14,6 +14,11 @@ import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
+import { BarPageComponent } from './bar-page/bar-page.component';
+import { DrinkerPageComponent } from './drinker-page/drinker-page.component';
+import { BartenderPageComponent } from './bartender-page/bartender-page.component';
+import { ManufacturerPageComponent } from './manufacturer-page/manufacturer-page.component';
+import { ModificationPageComponent } from './modification-page/modification-page.component';
 
 
 @NgModule({
@@ -24,6 +29,11 @@ import { InsightComponent } from './insight/insight.component';
     BeerDetailsComponent,
     BeersComponent,
     InsightComponent,
+    BarPageComponent,
+    DrinkerPageComponent,
+    BartenderPageComponent,
+    ManufacturerPageComponent,
+    ModificationPageComponent,
 
   ],
   imports: [
