@@ -7,7 +7,7 @@ engine = create_engine(config.database_uri)
 
 def get_bars():
     with engine.connect() as con:
-        rs = con.execute("SELECT * from bars;")
+        rs = con.execute("SELECT * from BarTable;")
         return [dict(row) for row in rs]
 
 def get_sells():
