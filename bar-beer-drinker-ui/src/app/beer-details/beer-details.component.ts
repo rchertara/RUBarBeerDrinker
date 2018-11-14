@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BeersService, BeerLocation } from '../beers.service';
+import { BeersService, BeerLocation, Drinker } from '../beers.service';
+
 import { ActivatedRoute } from '@angular/router';
 
 import { SelectItem } from 'primeng/components/common/selectitem';
@@ -14,6 +15,8 @@ export class BeerDetailsComponent implements OnInit {
   beerName: string;
   beerLocations: BeerLocation[];
   manufacturer: string;
+
+  peopleWhoDrink: Drinker[];
 
   filterOptions: SelectItem[];
   sortField: string;
@@ -36,6 +39,13 @@ export class BeerDetailsComponent implements OnInit {
         .subscribe(
           data => {
             this.manufacturer = data;
+          }
+        );
+
+        this.beerService.getBeerManufacturers(this.beerName)
+        .subscribe(
+          data => {
+            this.peopleWhoDrink = data;
           }
         );
 

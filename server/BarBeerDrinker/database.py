@@ -10,9 +10,11 @@ def get_bars():
         rs = con.execute("SELECT * from BarTable;")
         return [dict(row) for row in rs]
 
-def get_sells():
+def get_sells(name):
     with engine.connect() as con:
-        rs = con.execute("SELECT * from newSellsTable where barLicense = 'BL127';")
+        query=sql.text("SELECT * from (select BarName from BarTable where BarName= :name;)s from BarTable b where s.BarLicense=b.BarLicense")
+
+        rs = con.execute(query,name=name)
         return [dict(row) for row in rs]
 
 def find_bar(name):
@@ -55,18 +57,15 @@ def get_bar_menu(bar_license):
 
 def get_bars_selling(beer):
     with engine.connect() as con:
-        query = sql.text('SELECT a.bar, a.price, b.customers \
-                FROM sells AS a \
-                JOIN (SELECT bar, count(*) AS customers FROM frequents GROUP BY bar) as b \
-                ON a.bar = b.bar \
-                WHERE a.beer = :beer \
-                ORDER BY a.price; \
-            ')
+        query = sql.text('select w.BarName from \
+                        (select BarName, SUM(Quantity) as finalQ from ItemsTable i, TransactionTable t, BarTable B \
+                        where i.name= :beer AND i.ItemID=t.ItemID and t.BarLicense=B.BarLicense group by BarName order by finalQ DESC) w limit 10;')
         rs = con.execute(query, beer=beer)
         results = [dict(row) for row in rs]
-        for i, _ in enumerate(results):
-            results[i]['price'] = float(results[i]['price'])
         return results
+        #for i, _ in enumerate(results):
+           # results[i]['price'] = float(results[i]['price'])
+        
 
 
 def get_bar_frequent_counts():
@@ -93,18 +92,26 @@ def get_beers():
         return [dict(row) for row in rs]
 
 
+def get_a_beer(beer):
+    with engine.connect() as con:
+        query=sql.text("select ItemID from ItemsTable  where name = :beer")
+        rs = con.execute(query, beer=beer)
+        results = [dict(row) for row in rs]
+        return results
+
+
 def get_beer_manufacturers(beer):
     with engine.connect() as con:
         if beer is None:
-            rs = con.execute('SELECT DISTINCT manf FROM beers;')
-            return [row['manf'] for row in rs]
+            rs = con.execute('select DrinkerName from DrinkerTable limit 10;')
+            return [dict(row) for row in rs]
 
-        query = sql.text('SELECT manf FROM beers WHERE name = :beer;')
+        query = sql.text('select DrinkerName from DrinkerTable limit 10;')
         rs = con.execute(query, beer=beer)
-        result = rs.first()
+        result = [dict(row) for row in rs]
         if result is None:
             return None
-        return result['manf']
+        return result
 
 
 def get_drinkers():

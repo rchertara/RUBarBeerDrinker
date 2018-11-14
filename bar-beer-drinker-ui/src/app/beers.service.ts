@@ -6,6 +6,9 @@ export interface BeerLocation {
   price: number;
   customers: number;
 }
+export interface Drinker {
+  name: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +25,18 @@ export class BeersService {
     return this.http.get<BeerLocation[]>(`/api/bars-selling/${beer}`);
   }
 
-  getBeerManufacturers(beer?: string): any {
+  getDrinkers(beer?: string): any {
     if (beer) {
       return this.http.get<string>(`/api/beer-manufacturer/${beer}`);
     }
     return this.http.get<string[]>('/api/beer-manufacturer');
+  }
+
+  getBeerManufacturers(beer?: string): any {
+    if (beer) {
+      return this.http.get<Drinker>(`/api/beer-manufacturer/${beer}`);
+    }
+    return this.http.get<Drinker[]>('/api/beer-manufacturer');
   }
 
 }

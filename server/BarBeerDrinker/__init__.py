@@ -39,7 +39,7 @@ def find_beers_cheaper_than():
 
 @app.route('/api/menu/<name>', methods=['GET'])
 def get_menu(name):
-    return jsonify(database.get_sells())
+    return jsonify(database.get_sells(name))
 
 
 
@@ -61,9 +61,10 @@ def get_beers():
 
 
 @app.route("/api/beer-manufacturer", methods=["GET"])
-def get_beer_manufacturers():
+def get_beer_manufacturers(beerName):
     try:
-        return jsonify(database.get_beer_manufacturers(None))
+        return jsonify(database.get_a_beer(beerName))
+        #return jsonify(database.get_beer_manufacturers(None))
     except Exception as e:
         return make_response(str(e), 500)
 
