@@ -68,16 +68,16 @@ def get_beers():
         return make_response(str(e), 500)
 
 
-@app.route("/api/beer-manufacturer", methods=["GET"])
-def get_beer_manufacturers(beerName):
+@app.route("/api/drinkerForABeer", methods=["GET"])
+def get_drinkerForABeer(beerName):
     try:
-        return jsonify(database.get_a_beer(beerName))
+       return jsonify(database.get_beer_manufacturers(beerName))
         #return jsonify(database.get_beer_manufacturers(None))
     except Exception as e:
         return make_response(str(e), 500)
 
 
-@app.route("/api/beer-manufacturer/<beer>", methods=["GET"])
+@app.route("/api/drinkerForBeer/<beer>", methods=["GET"])
 def get_manufacturers_making(beer):
     try:
         return jsonify(database.get_beer_manufacturers(beer))

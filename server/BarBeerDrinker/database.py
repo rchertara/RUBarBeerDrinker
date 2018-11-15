@@ -29,9 +29,11 @@ def get_transactions():
         rs = con.execute("SELECT * from DrinkerTable limit 10;")
         return [dict(row) for row in rs]
 
-def get_spending():
+def get_spending(name):
     with engine.connect() as con:
-        rs = con.execute("SELECT * from BillsTable limit 10;")
+        query = sql.text("select BarName, t.TransactionID, time from BillsTable b, DrinkerTable d, TransactionTable t, BarTable b1 \
+        where d.DrinkerName=:name AND d.DrinkerID=t.DrinkerID AND t.TransactionID=b.TransactionID AND b1.BarLicense=t.BarLicense group by t.BarLicense order by time;")
+        rs=con.execute(query,name=name)
         return [dict(row) for row in rs]
 
 def get_sells(name):

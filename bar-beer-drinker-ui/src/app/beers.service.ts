@@ -31,17 +31,31 @@ export class BeersService {
 
   getDrinkers(beer?: string): any {
     if (beer) {
-      return this.http.get<string>(`/api/beer-manufacturer/${beer}`);
+      return this.http.get<string>(`/api/beer-D/${beer}`);
     }
-    return this.http.get<string[]>('/api/beer-manufacturer');
+    return this.http.get<string[]>('/api/beer-C');
   }
 
-  getBeerManufacturers(beer?: string): any { //
+  getdrinkerForBeer(beer?: string): any { //
     if (beer) {
-      return this.http.get<Drinker>(`/api/beer-manufacturer/${beer}`);
+      return this.http.get<Drinker>(`/api/drinkerForBeer/${beer}`);
     }
-    return this.http.get<Drinker[]>('/api/beer-manufacturer');
+    return this.http.get<Drinker[]>('/api/drinker');
   }
+
+  getdrinkerSpedning(beer?: string): any { //
+    if (name) {
+      return this.http.get<Drinker>(`/api/drinker_page/${name}`);
+    }
+    return this.http.get<Drinker[]>('/api/drinker_page');
+  }
+
+  // getBeerManufacturers(beer?: string): any { //
+  //   if (beer) {
+  //     return this.http.get<Drinker>(`/api/beer-A/${beer}`);
+  //   }
+  //   return this.http.get<Drinker[]>('/api/beer-B');
+  // }
   getTime(beer?: string): any { //
     if (beer) {
       return this.http.get<Drinker>(`/api/beer/${beer}`);
