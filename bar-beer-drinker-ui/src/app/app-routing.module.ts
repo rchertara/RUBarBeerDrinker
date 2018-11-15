@@ -10,6 +10,7 @@ import { BarPageComponent } from './bar-page/bar-page.component'; // bar page
 import { DrinkerPageComponent} from './drinker-page/drinker-page.component'; // drinker page
 import { BartenderPageComponent} from './bartender-page/bartender-page.component'; // bartender page
 import { ManufacturerPageComponent} from './manufacturer-page/manufacturer-page.component'; // manufacturer page
+import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component'; // manufacturer detail page link
 import { ModificationPageComponent} from './modification-page/modification-page.component'; // modification page
 
 const routes: Routes = [
@@ -67,6 +68,11 @@ const routes: Routes = [
     path: 'manufacturer_page',
     pathMatch:  'full',
     component: ManufacturerPageComponent // manufacturer page component
+  },
+  {
+    path: 'manufacturer_page/:manufacturer',
+    pathMatch:  'full',
+    component: ManufacturerDetailComponent // details of manufacturer
   },
   {
     path: 'modification_page',

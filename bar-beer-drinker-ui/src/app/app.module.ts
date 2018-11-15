@@ -19,6 +19,7 @@ import { DrinkerPageComponent } from './drinker-page/drinker-page.component';
 import { BartenderPageComponent } from './bartender-page/bartender-page.component';
 import { ManufacturerPageComponent } from './manufacturer-page/manufacturer-page.component';
 import { ModificationPageComponent } from './modification-page/modification-page.component';
+import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ModificationPageComponent } from './modification-page/modification-page
     BartenderPageComponent,
     ManufacturerPageComponent,
     ModificationPageComponent,
+    ManufacturerDetailComponent,
 
   ],
   imports: [
