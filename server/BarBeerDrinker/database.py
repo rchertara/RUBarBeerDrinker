@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import sql
 
+import json
 from BarBeerDrinker import config
 
 engine = create_engine(config.database_uri)
@@ -10,9 +11,29 @@ def get_bars():
         rs = con.execute("SELECT * from BarTable;")
         return [dict(row) for row in rs]
 
+def getBeerTime(beer):
+    with engine.connect() as con:
+        query=sql.text('select SUM(Quantity) as finalQ from BillsTable b, TransactionTable t, ItemsTable i \
+        where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(time) order by time;')
+        rs = con.execute(query,beer=beer)
+        results= [dict(row) for row in rs]
+        #json.dumps(r, indent=4, sort_keys=True, default=str)
+        return results
+
+
+def get_transactions():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from DrinkerTable limit 10;")
+        return [dict(row) for row in rs]
+
+def get_spending():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from BillsTable limit 10;")
+        return [dict(row) for row in rs]
+
 def get_sells(name):
     with engine.connect() as con:
-        query=sql.text("SELECT * from (select BarName from BarTable where BarName= :name;)s from BarTable b where s.BarLicense=b.BarLicense")
+        query=sql.text("Select D.DrinkerName,B.totalCost from DrinkerTable D,BillsTable B limit 10 ")
 
         rs = con.execute(query,name=name)
         return [dict(row) for row in rs]
@@ -20,7 +41,7 @@ def get_sells(name):
 def find_bar(name):
     with engine.connect() as con:
         query = sql.text(
-            "SELECT * FROM bars WHERE barName = :name;"
+            "SELECT * FROM BarTable WHERE BarName = :name;"
         )
 
         rs = con.execute(query, name=name)
@@ -45,7 +66,7 @@ def filter_beers(max_price):
 def get_bar_menu(bar_license):
     with engine.connect() as con:
         query = sql.text(
-            "SELECT * from newSellsTable where barLicense = 'BL127';"
+            "SELECT * from SellsTable where BarLicense = 'BL127';"
         )
         rs = con.execute(query,bar_license)
         results = [dict(row) for row in rs]
@@ -70,9 +91,9 @@ def get_bars_selling(beer):
 
 def get_bar_frequent_counts():
     with engine.connect() as con:
-        query = sql.text('SELECT bar, count(*) as frequentCount \
-                FROM frequents \
-                GROUP BY bar; \
+        query = sql.text('SELECT DrinkerID, count(*) as frequentCount \
+                FROM FrequentTable \
+                GROUP BY BarLicense; \
             ')
         rs = con.execute(query)
         results = [dict(row) for row in rs]
@@ -102,15 +123,12 @@ def get_a_beer(beer):
 
 def get_beer_manufacturers(beer):
     with engine.connect() as con:
-        if beer is None:
-            rs = con.execute('select DrinkerName from DrinkerTable limit 10;')
-            return [dict(row) for row in rs]
-
-        query = sql.text('select DrinkerName from DrinkerTable limit 10;')
+        query=sql.text('select DrinkerName from DrinkerTable d, \
+        (select DrinkerID, SUM(Quantity) as finalQ from TransactionTable t, ItemsTable i \
+        where i.name= :beer AND i.ItemID=t.ItemID group by DrinkerID order by finalQ DESC) s \
+        where d.DrinkerID=s.DrinkerID;')
         rs = con.execute(query, beer=beer)
         result = [dict(row) for row in rs]
-        if result is None:
-            return None
         return result
 
 

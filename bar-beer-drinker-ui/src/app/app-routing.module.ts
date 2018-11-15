@@ -54,6 +54,11 @@ const routes: Routes = [
     component: DrinkerPageComponent // drinker page component
   },
   {
+    path: 'drinker_page/:drinker',
+    pathMatch:  'full',
+    component: DrinkerPageComponent // drinker page component
+  },
+  {
     path: 'bartender_page',
     pathMatch:  'full',
     component: BartenderPageComponent // drinker page component

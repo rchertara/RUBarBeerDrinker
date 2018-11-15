@@ -12,6 +12,14 @@ app = Flask(__name__)
 def get_bars():
     return jsonify(database.get_bars())
 
+@app.route('/api/drinker_page', methods=["GET"])
+def get_transactions():
+    return jsonify(database.get_transactions())
+
+@app.route('/api/drinker_page/<name>', methods=["GET"])
+def get_spending():
+    return jsonify(database.get_spending())
+
 
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):
@@ -124,5 +132,16 @@ def find_bars_selling(beer):
 def get_bar_frequent_counts():
     try:
         return jsonify(database.get_bar_frequent_counts())
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/beer/<beer>', methods=['GET'])
+def get_BeerTime(beer):
+    try:
+        if beer is None:
+            raise ValueError('Beer not specified')
+        return jsonify(database.getBeerTime(beer))
+    except ValueError as e:
+        return make_response(str(e), 400)
     except Exception as e:
         return make_response(str(e), 500)

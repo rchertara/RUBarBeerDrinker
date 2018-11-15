@@ -9,6 +9,10 @@ export interface BeerLocation {
 export interface Drinker {
   name: string;
 }
+export interface Time {
+  time: string;
+  quantity: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +36,17 @@ export class BeersService {
     return this.http.get<string[]>('/api/beer-manufacturer');
   }
 
-  getBeerManufacturers(beer?: string): any {
+  getBeerManufacturers(beer?: string): any { //
     if (beer) {
       return this.http.get<Drinker>(`/api/beer-manufacturer/${beer}`);
     }
     return this.http.get<Drinker[]>('/api/beer-manufacturer');
+  }
+  getTime(beer?: string): any { //
+    if (beer) {
+      return this.http.get<Drinker>(`/api/beer/${beer}`);
+    }
+    return this.http.get<Drinker[]>('/api/beer');
   }
 
 }

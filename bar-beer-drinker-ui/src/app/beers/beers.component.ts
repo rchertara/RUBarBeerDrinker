@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BeersService } from '../beers.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
+
+declare const HighCharts: any;
+
 @Component({
   selector: 'app-beers',
   templateUrl: './beers.component.html',
@@ -19,6 +22,7 @@ export class BeersComponent implements OnInit {
       data => {
         this.beers = data;
         this.originalBeersList = data;
+
       }
     );
     this.beerService.getBeerManufacturers().subscribe(

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { BeersService, BeerLocation, Drinker } from '../beers.service';
+import { BeersService, BeerLocation, Drinker, Time } from '../beers.service';
+import { BarsService } from '../bars.service';
 
 import { ActivatedRoute } from '@angular/router';
 
 import { SelectItem } from 'primeng/components/common/selectitem';
 
+declare const Highcharts: any;
 @Component({
   selector: 'app-beer-details',
   templateUrl: './beer-details.component.html',
@@ -17,6 +19,7 @@ export class BeerDetailsComponent implements OnInit {
   manufacturer: string;
 
   peopleWhoDrink: Drinker[];
+  timeDistro: Time [];
 
   filterOptions: SelectItem[];
   sortField: string;
@@ -24,6 +27,7 @@ export class BeerDetailsComponent implements OnInit {
 
   constructor(
     private beerService: BeersService,
+    private barService: BarsService,
     private route: ActivatedRoute
   ) {
     this.route.paramMap.subscribe((paramMap) => {
@@ -34,8 +38,20 @@ export class BeerDetailsComponent implements OnInit {
           this.beerLocations = data;
         }
       );
+      this.barService.getFrequentCounts().subscribe(
+        data => {
+          console.log(data);
+          const bars = [];
+          const counts = [];
+          data.forEach(bar => {
+            bars.push(bar.bar);
+            counts.push(bar.frequentCount);
+          });
+        this.renderChart(bars, counts);
+        }
+      );
 
-      this.beerService.getBeerManufacturers(this.beerName)
+      this.beerService.getTime(this.beerName)
         .subscribe(
           data => {
             this.manufacturer = data;
@@ -91,6 +107,47 @@ export class BeerDetailsComponent implements OnInit {
         return b.customers - a.customers;
       });
     }
+  }
+  renderChart(bars: string[], counts: number[]) {
+    Highcharts.chart('bargraph', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Frequenting count at bars'
+      },
+      xAxis: {
+        categories: bars,
+        title: {
+          text: 'Bar'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Number of customers'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: counts
+      }]
+    });
   }
 
 

@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Transactions {
-  TranscationID:string;
-  BarLicense:string;
-  CustomerID:string;
-  ItemID:string;
-  Quantity:string;
-  total:string
+  TranscationID: string;
+  BarLicense: string;
+  CustomerID: string;
+  ItemID: string;
+  Quantity: string;
+  total: string;
 
 
 }
@@ -24,7 +24,12 @@ export class TransactionsService {
   ) { }
 
   getTransactions() {
-    return this.http.get<Transactions[]>('/api/transaction');
+    return this.http.get<Transactions[]>('/api/drinker_page');
+
+  }
+  getSpendings(drinker : string) {
+    return this.http.get<Transactions[]>('/api/drinker_page/' + drinker );
+
   }
 
 
