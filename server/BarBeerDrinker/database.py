@@ -24,9 +24,9 @@ def getBeerTime(beer):
         
 
 
-def get_transactions():
+def get_allDrinkers():
     with engine.connect() as con:
-        rs = con.execute("SELECT * from DrinkerTable limit 10;")
+        rs = con.execute("SELECT DrinkerName from DrinkerTable;")
         return [dict(row) for row in rs]
 
 def get_spending(name):
@@ -34,7 +34,10 @@ def get_spending(name):
         query = sql.text("select BarName, t.TransactionID, time from BillsTable b, DrinkerTable d, TransactionTable t, BarTable b1 \
         where d.DrinkerName=:name AND d.DrinkerID=t.DrinkerID AND t.TransactionID=b.TransactionID AND b1.BarLicense=t.BarLicense group by t.BarLicense order by time;")
         rs=con.execute(query,name=name)
-        return [dict(row) for row in rs]
+        results=[dict(row) for row in rs]
+        for r in results:
+                r['time'] = str(r['time'])
+        return results
 
 def get_sells(name):
     with engine.connect() as con:

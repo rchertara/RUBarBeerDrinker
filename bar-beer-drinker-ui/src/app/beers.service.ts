@@ -7,7 +7,7 @@ export interface BeerLocation {
   customers: number;
 }
 export interface Drinker {
-  name: string;
+  Name: string;
 }
 export interface Time {
   time: string;
@@ -43,12 +43,12 @@ export class BeersService {
     return this.http.get<Drinker[]>('/api/drinker');
   }
 
-  getdrinkerSpedning(beer?: string): any { //
-    if (name) {
-      return this.http.get<Drinker>(`/api/drinker_page/${name}`);
-    }
-    return this.http.get<Drinker[]>('/api/drinker_page');
-  }
+  // getdrinkerSpending(name?: string): any { //
+  //   if (name) {
+  //     return this.http.get<Drinker>(`/api/drinker-page/${name}`);
+  //   }
+  //   return this.http.get<Drinker[]>('/api/drinker_page');
+  // }
 
   // getBeerManufacturers(beer?: string): any { //
   //   if (beer) {

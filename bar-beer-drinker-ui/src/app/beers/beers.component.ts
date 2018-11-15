@@ -25,7 +25,7 @@ export class BeersComponent implements OnInit {
 
       }
     );
-    this.beerService.getBeerManufacturers().subscribe(
+    this.beerService.getDrinkers().subscribe(
       data => {
         this.manufacturerOptions = data.map(manf => {
           return {

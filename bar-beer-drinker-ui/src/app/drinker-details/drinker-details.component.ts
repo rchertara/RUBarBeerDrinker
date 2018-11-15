@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeersService, BeerLocation, Drinker, Time } from '../beers.service';
 import { BarsService } from '../bars.service';
+import {Transactions, TransactionsService} from '../transactions.service';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,6 +23,7 @@ export class DrinkerDetailsComponent implements OnInit {
 
 
   peopleWhoDrink: Drinker[];
+  peopleSpendings: Transactions[]
 
   timeDistro: Time [];
 
@@ -30,39 +32,22 @@ export class DrinkerDetailsComponent implements OnInit {
   sortOrder: number;
 
   constructor(
-    private beerService: BeersService,
-    private barService: BarsService,
+
+    private transService:TransactionsService,
     private route: ActivatedRoute
   ) {
     this.route.paramMap.subscribe((paramMap) => {
-      this.beerName = paramMap.get('beer');
-      this.drinkerName=paramMap.get('name')
 
-      this.beerService.getBarsSelling(this.beerName).subscribe(
-        data => {
-          this.beerLocations = data;
-        }
-      );
+      this.drinkerName=paramMap.get('drinker');
 
-      this.beerService.getTime(this.beerName)
+
+
+      this.transService.getSpendings(this.drinkerName)
         .subscribe(
           data => {
-            this.manufacturer = data;
+            this.peopleSpendings = data;
           }
         );
-
-        this.beerService.getDrinkers(this.beerName)
-        .subscribe(
-          data => {
-            this.peopleWhoDrink = data;
-          }
-        );
-        this.beerService.getdrinkerSpedning(this.drinkerName)
-          .subscribe(
-            data => {
-              this.peopleWhoDrink = data;
-            }
-          );
 
     });
   }
@@ -71,47 +56,7 @@ export class DrinkerDetailsComponent implements OnInit {
   }
 
 
-  renderChart(bars: string[], counts: number[]) {
-    Highcharts.chart('bargraph', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Frequenting count at bars'
-      },
-      xAxis: {
-        categories: bars,
-        title: {
-          text: 'Bar'
-        }
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Number of customers'
-        },
-        labels: {
-          overflow: 'justify'
-        }
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        data: counts
-      }]
-    });
-  }
+
 
 
 

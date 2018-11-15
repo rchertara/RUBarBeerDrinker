@@ -28,6 +28,7 @@ export class BeerDetailsComponent implements OnInit {
   constructor(
     private beerService: BeersService,
     private barService: BarsService,
+
     private route: ActivatedRoute
   ) {
     this.route.paramMap.subscribe((paramMap) => {

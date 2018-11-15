@@ -13,12 +13,12 @@ def get_bars():
     return jsonify(database.get_bars())
 
 @app.route('/api/drinker_page', methods=["GET"])
-def get_transactions():
-    return jsonify(database.get_transactions())
+def get_allDrinkers():
+    return jsonify(database.get_allDrinkers())
 
-@app.route('/api/drinker_page/<name>', methods=["GET"])
-def get_spending():
-    return jsonify(database.get_spending())
+@app.route("/api/drinker_page/<name>", methods=["GET"])
+def get_spending(name):
+    return jsonify(database.get_spending(name))
 
 
 @app.route("/api/bar/<name>", methods=["GET"])
