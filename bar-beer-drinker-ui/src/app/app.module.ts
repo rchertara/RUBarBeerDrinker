@@ -19,6 +19,7 @@ import { DrinkerPageComponent } from './drinker-page/drinker-page.component';
 import { BartenderPageComponent } from './bartender-page/bartender-page.component';
 import { ManufacturerPageComponent } from './manufacturer-page/manufacturer-page.component';
 import { ModificationPageComponent } from './modification-page/modification-page.component';
+import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component';
 
 
@@ -36,6 +37,7 @@ import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-
     ManufacturerPageComponent,
     ModificationPageComponent,
     ManufacturerDetailComponent,
+    DrinkerDetailsComponent,
 
   ],
   imports: [

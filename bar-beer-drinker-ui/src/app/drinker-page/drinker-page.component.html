@@ -19,26 +19,16 @@
   <p-table [value]="transactions" sortMode="multiple" sortField="price">
     <ng-template pTemplate="header">
       <tr>
+        
         <th>DrinkerName</th>
-        <th>DrinkerID</th>
-        
-        
-      </tr>
+     </tr>
     </ng-template>
     <ng-template pTemplate="body" let-t>
       <tr>
-        <td>{{ t.DrinkerName}}</td>
-        <td>{{ t.DrinkerID}}</td>
-
-             
+          <td><a routerLink="/drinker_page/{{ t.DrinkerName }}">{{ t.DrinkerName }}</a></td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<div class="container">
-  <br>
-  <div id="bargraph"></div>
 </div>
 
 <div class="container">

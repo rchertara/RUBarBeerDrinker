@@ -13,12 +13,15 @@ def get_bars():
 
 def getBeerTime(beer):
     with engine.connect() as con:
-        query=sql.text('select SUM(Quantity) as finalQ from BillsTable b, TransactionTable t, ItemsTable i \
+        query=sql.text('select b.time as time ,SUM(Quantity) as finalQ from BillsTable b, TransactionTable t, ItemsTable i \
         where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(time) order by time;')
         rs = con.execute(query,beer=beer)
         results= [dict(row) for row in rs]
-        #json.dumps(r, indent=4, sort_keys=True, default=str)
+        for r in results:
+                r['time'] = str(r['time'])
         return results
+        #json.dumps(r, indent=4, sort_keys=True, default=str)
+        
 
 
 def get_transactions():
