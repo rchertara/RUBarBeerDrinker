@@ -38,9 +38,9 @@ export class BeersService {
 
   getdrinkerForBeer(beer?: string): any { //
     if (beer) {
-      return this.http.get<Drinker>(`/api/drinkerForBeer/${beer}`);
+      return this.http.get<Drinker>(`/api/beers/${beer}`);
     }
-    return this.http.get<Drinker[]>('/api/drinker');
+    return this.http.get<Drinker[]>('/api/beers/');
   }
 
   // getdrinkerSpending(name?: string): any { //

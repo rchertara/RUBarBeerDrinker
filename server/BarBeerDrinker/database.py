@@ -95,9 +95,18 @@ def get_bars_selling(beer):
         #for i, _ in enumerate(results):
            # results[i]['price'] = float(results[i]['price'])
         
+def get_beerPageGraph(beer):
+    with engine.connect() as con:
+        query = sql.text('SELECT DrinkerID, count(*) as frequentCount \
+                FROM FrequentTable \
+                GROUP BY BarLicense; \
+            ')
+        rs = con.execute(query)
+        results = [dict(row) for row in rs]
+        return results
 
 
-def get_bar_frequent_counts():
+def get_bar_frequent_counts(): #this is fake graph
     with engine.connect() as con:
         query = sql.text('SELECT DrinkerID, count(*) as frequentCount \
                 FROM FrequentTable \
@@ -129,12 +138,12 @@ def get_a_beer(beer):
         return results
 
 
-def get_beer_manufacturers(beer):
+def get_drinkerForABeer(beer):
     with engine.connect() as con:
         query=sql.text('select DrinkerName from DrinkerTable d, \
         (select DrinkerID, SUM(Quantity) as finalQ from TransactionTable t, ItemsTable i \
         where i.name= :beer AND i.ItemID=t.ItemID group by DrinkerID order by finalQ DESC) s \
-        where d.DrinkerID=s.DrinkerID;')
+        where d.DrinkerID=s.DrinkerID limit 10;')
         rs = con.execute(query, beer=beer)
         result = [dict(row) for row in rs]
         return result

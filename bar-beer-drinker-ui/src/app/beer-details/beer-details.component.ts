@@ -56,16 +56,11 @@ export class BeerDetailsComponent implements OnInit {
       this.beerService.getdrinkerForBeer(this.beerName)
         .subscribe(
           data => {
-            this.manufacturer = data;
-          }
-        );
-
-        this.beerService.getDrinkers(this.beerName)
-        .subscribe(
-          data => {
             this.peopleWhoDrink = data;
           }
         );
+
+
 
       this.filterOptions = [
         {

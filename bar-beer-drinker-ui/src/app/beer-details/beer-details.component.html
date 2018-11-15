@@ -12,8 +12,8 @@
 <div class="container">
   <br>
   <div>
-    <span class="font-weight-light result-count">Sold at {{ beerLocations?.length }}</span>
-    <p-dropdown class="float-right text-left" *ngIf="filterOptions" [options]="filterOptions" (onChange)="sortBy($event.value)"></p-dropdown>
+    <span class="font-weight-light result-count">Top Bars that sell this beer</span>
+
   </div>
   <br>
   <p-table [value]="beerLocations" sortMode="multiple" sortField="price">
@@ -36,8 +36,8 @@
 <div class="container">
   <br>
   <div>
-    <span class="font-weight-light result-count">Sold at {{ beerLocations?.length }}</span>
-    <p-dropdown class="float-right text-left" *ngIf="filterOptions" [options]="filterOptions" (onChange)="sortBy($event.value)"></p-dropdown>
+    <span class="font-weight-light result-count">Top Drinkers who drink this beer</span>
+
   </div>
   <br>
   <p-table [value]="peopleWhoDrink" sortMode="multiple" sortField="price">
