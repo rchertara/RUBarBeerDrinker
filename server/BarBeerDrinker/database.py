@@ -105,12 +105,12 @@ def get_bars_selling(beer):
         
 def get_beerPageGraph(beer):
     with engine.connect() as con:
-        query = sql.text('select b.Date, SUM(Quantity) as finalQ from BillTable b, TransactionTable t, ItemsTable i \
-        where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(Date) order by Date;')
+        query = sql.text('select Time, SUM(Quantity) as finalQ from BillTable b, TransactionTable t, ItemsTable i \
+        where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(Time) order by Time;')
         rs = con.execute(query,beer=beer)
         results = [dict(row) for row in rs]
         for r in results:
-                r['Date'] = str(r['Date'])
+                r['Time'] = str(r['Time'])
                 r['finalQ'] = str(r['finalQ'])
         return results
 
