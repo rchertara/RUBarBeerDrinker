@@ -103,7 +103,7 @@ def get_bars_selling(beer):
         #for i, _ in enumerate(results):
            # results[i]['price'] = float(results[i]['price'])
         
-def get_beerPageGraph(beer):
+def get_beerPageGraph(beer): #not really graph beer page final qury
     with engine.connect() as con:
         query = sql.text('select Time, SUM(Quantity) as finalQ from BillTable b, TransactionTable t, ItemsTable i \
         where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(Time) order by Time;')
@@ -115,7 +115,7 @@ def get_beerPageGraph(beer):
         return results
 
 
-def get_bar_frequent_counts(): #this is fake graph
+def get_bar_frequent_counts(): #this is fake insights graph
     with engine.connect() as con:
         query = sql.text('SELECT DrinkerID, count(*) as frequentCount \
                 FROM FrequentTable \
@@ -123,6 +123,16 @@ def get_bar_frequent_counts(): #this is fake graph
             ')
         rs = con.execute(query)
         results = [dict(row) for row in rs]
+        return results
+
+def get_drinkerPageGraph(name): #this is for drinker page second qury 
+    with engine.connect() as con:
+        query = sql.text('select name,Quantity from ItemsTable i, TransactionTable t, DrinkerTable d \
+        where i.ItemID=t.ItemID AND d.DrinkerName=:name AND d.drinkerID=t.drinkerID limit 10;')
+        rs = con.execute(query,name=name)
+        results = [dict(row) for row in rs]
+        for r in results:
+                r['Quantity']=float(r['Quantity'])
         return results
 
 

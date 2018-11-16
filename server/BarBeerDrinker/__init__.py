@@ -20,7 +20,9 @@ def get_allDrinkers():
 def get_spending(name):
     return jsonify(database.get_spending(name))
 
-
+@app.route("/api/drinker_pageGraph/<name>", methods=["GET"])
+def get_drinkerPageGraph(name):
+    return jsonify(database.get_drinkerPageGraph(name))
 
 @app.route("/api/transaction/<drinker>/<tid>", methods=["GET"])
 def get_drinkerOrders(drinker,tid):

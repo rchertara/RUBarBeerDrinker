@@ -41,9 +41,38 @@ export class DrinkerDetailsComponent implements OnInit {
 
       this.drinkerName=paramMap.get('drinker');
 
+      // this.barService.getFrequentCounts().subscribe(
+      //   data => {
+      //     console.log(data);
+      //
+      //     const bars = [];
+      //     const counts = [];
+      //
+      //     data.forEach(bar => {
+      //       bars.push(bar.bar);
+      //       counts.push(bar.frequentCount);
+      //     });
+      //
+      //     this.renderChart(bars, counts);
+      //   }
+      // );
 
+      this.transService.getdrinkerPageGraph(this.drinkerName)
+        .subscribe(
+          data => {
+            console.log(data);
 
+            const names = [];
+            const quantity = [];
 
+            data.forEach(name=> {
+              quantity.push(name.Quantity);
+              names.push(name.name);
+            });
+
+            this.renderChart(quantity, names);
+          }
+        );
       this.transService.getSpendings(this.drinkerName)
         .subscribe(
           data => {
@@ -51,12 +80,55 @@ export class DrinkerDetailsComponent implements OnInit {
           }
         );
 
+
+
     });
   }
 
   ngOnInit() {
   }
 
+  renderChart(quantity: number[], name: string[]) {
+    Highcharts.chart('bargraph', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Graph of Beers Ordered the most'
+      },
+      xAxis: {
+        categories: name,
+        title: {
+          text: ''
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Quantity'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: quantity
+      }]
+    });
+  }
 
 
 

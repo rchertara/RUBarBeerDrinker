@@ -38,6 +38,11 @@ drinker:string;
     return this.http.get<Transactions[]>(`/api/drinker_page/${drinker}`);
 
   }
+  getdrinkerPageGraph(drinker : string) {
+    //this.drinker=drinker;
+    return this.http.get<any[]>(`/api/drinker_pageGraph/${drinker}`);
+
+  }
   //message: string, title?: string, autoHideAfter?: number
   getDrinkerOrders(tid : string) {
     return this.http.get<Order[]>('/api/transaction/'+this.drinker+'/'+tid);
