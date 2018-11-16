@@ -24,9 +24,24 @@ def get_spending(name):
 def get_drinkerPageGraph(name):
     return jsonify(database.get_drinkerPageGraph(name))
 
+
+@app.route('/api/bar-spendings/<drinkerName>/<barName>', methods=["GET"]) #bar Page qury 1
+def get_drinkerPageQury3(drinkerName,barName):
+    try:
+        return jsonify(database.get_drinkerPageQury3(drinkerName,barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+
 @app.route("/api/transaction/<drinker>/<tid>", methods=["GET"])
 def get_drinkerOrders(drinker,tid):
     return jsonify(database.get_drinkerOrders(drinker,tid))
+
+@app.route('/api/bars/<barName>', methods=['GET']) #bar Page qury 1
+def get_barPageQury1(barName):
+    try:
+        return jsonify(database.get_barPageQury1(barName))
+    except Exception as e:
+        return make_response(str(e), 500)
 
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):

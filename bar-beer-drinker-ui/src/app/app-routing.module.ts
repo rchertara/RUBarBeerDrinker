@@ -14,6 +14,8 @@ import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-
 import { ModificationPageComponent} from './modification-page/modification-page.component'; // modification page
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
+import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
+
 
 const routes: Routes = [
   {
@@ -65,6 +67,16 @@ const routes: Routes = [
     path: 'transaction/:tid', //trans
     pathMatch:  'full',
     component: TransactionsDetailsComponent //details of a Transactions for a drinker from a drinker in drinker details page
+  },
+  {
+    path: 'bar-spendings/:barName', //trans
+    pathMatch:  'full',
+    component: BarSpendingsComponent //details of a Transactions for a drinker from a drinker in drinker details page
+  },
+  {
+    path: 'bar-spendings/:drinkerName', //trans
+    pathMatch:  'full',
+    component: BarSpendingsComponent //details of a Transactions for a drinker from a drinker in drinker details page
   },
 
   {

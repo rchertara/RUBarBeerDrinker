@@ -22,6 +22,7 @@ import { ModificationPageComponent } from './modification-page/modification-page
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
+import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
     ManufacturerDetailComponent,
     DrinkerDetailsComponent,
     TransactionsDetailsComponent,
+    BarSpendingsComponent,
 
   ],
   imports: [

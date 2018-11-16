@@ -48,6 +48,9 @@ drinker:string;
     return this.http.get<Order[]>('/api/transaction/'+this.drinker+'/'+tid);
 
   }
+  getDrinkerPageQury3(barName:string) {
+    return this.http.get<any[]>('/api/bar-spendings/'+this.drinker+'/'+barName);
+  }
 
 
 }

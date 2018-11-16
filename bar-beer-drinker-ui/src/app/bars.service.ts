@@ -24,6 +24,12 @@ export class BarsService {
     public http: HttpClient
   ) { }
 
+
+
+  getBarPageQuery1(barName:string) {
+    return this.http.get<any[]>('/api/bars/'+barName);
+  }
+
   getBars() {
     return this.http.get<Bar[]>('/api/bar');
   }

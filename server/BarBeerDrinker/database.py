@@ -135,6 +135,28 @@ def get_drinkerPageGraph(name): #this is for drinker page second qury
                 r['Quantity']=float(r['Quantity'])
         return results
 
+def get_barPageQury1(name):
+     with engine.connect() as con:
+        query = sql.text('select DrinkerName, d1.finalQ as finalQ from DrinkerTable d, \
+        (select t.DrinkerID, SUM(Total) finalQ from TransactionTable t, BarTable b \
+        where b.BarName=:name AND t.BarLicense=b.BarLicense group by DrinkerID order by finalQ DESC limit 10) d1 \
+        where d.DrinkerID=d1.DrinkerID;')
+        rs = con.execute(query,name=name)
+        results = [dict(row) for row in rs]
+        for r in results:
+                r['finalQ']=float(r['finalQ'])
+        return results   
+
+def get_drinkerPageQury3(drinkerName,barName):
+  with engine.connect() as con:
+        query = sql.text('select BillID, b1.TransactionID, Total, Date from BillTable b1, \
+        (select TransactionID, ItemID,t.BarLicense  from TransactionTable t, DrinkerTable d, BarTable b \
+        where d.DrinkerName=:drinkerName AND d.DrinkerID=t.DrinkerID AND b.BarName=:barName AND b.BarLicense=t.BarLicense) q \
+        where b1.TransactionID=q.TransactionID order by week(Date);')
+        rs = con.execute(query,barName=barName,drinkerName=drinkerName)
+        results = [dict(row) for row in rs]
+        return results
+
 
 def get_bar_cities():
     with engine.connect() as con:

@@ -37,47 +37,44 @@ export class BarDetailsComponent implements OnInit {
         }
       );
 
-      barService.getMenu(this.barName).subscribe(
-        data => {
-          this.menu = data;
-        }
-      );
-      this.barService.getFrequentCounts().subscribe(
+      barService.getBarPageQuery1(this.barName).subscribe(
         data => {
           console.log(data);
-          const bars = [];
-          const counts = [];
-          data.forEach(bar => {
-            bars.push(bar.bar);
-            counts.push(bar.frequentCount);
+          const names = [];
+          const quantity = [];
+
+          data.forEach(Name=> {
+            quantity.push(Name.finalQ);
+            names.push(Name.DrinkerName);
           });
-        this.renderChart(bars, counts);
-        
+
+          this.renderChart(quantity, names);
         }
       );
+
     });
   }
 
   ngOnInit() {
   }
-  renderChart(bars: string[], counts: number[]) {
+  renderChart(quantity: number[], name: string[]) {
     Highcharts.chart('bargraph', {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Frequenting count at bars'
+        text: 'Top Spenders in this bar'
       },
       xAxis: {
-        categories: bars,
+        categories: name,
         title: {
-          text: 'Bar'
+          text: ''
         }
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Number of customers'
+          text: 'Quantity'
         },
         labels: {
           overflow: 'justify'
@@ -97,48 +94,7 @@ export class BarDetailsComponent implements OnInit {
         enabled: false
       },
       series: [{
-        data: counts
-      }]
-    });
-  }
-  renderChart2(bars: string[], counts: number[]) {
-    Highcharts2.chart('bargraph', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Frequenting count at bars'
-      },
-      xAxis: {
-        categories: bars,
-        title: {
-          text: 'Bar'
-        }
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Number of customers'
-        },
-        labels: {
-          overflow: 'justify'
-        }
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        data: counts
+        data: quantity
       }]
     });
   }

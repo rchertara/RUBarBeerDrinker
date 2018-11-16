@@ -24,7 +24,7 @@
       <ng-template pTemplate="body" let-t>
         <tr>
           <td>{{ t.time }}</td>
-          <td>{{ t.BarName}}</td>
+          <td><a routerLink="/bar-spendings/{{ t.BarName }}">{{ t.BarName}}</a></td>
           <td><a routerLink="/transaction/{{ t.TransactionID }}">{{ t.TransactionID}}</a></td>
 
         </tr>
@@ -36,3 +36,5 @@
     <br>
     <div id="bargraph"></div>
   </div>
+
+
