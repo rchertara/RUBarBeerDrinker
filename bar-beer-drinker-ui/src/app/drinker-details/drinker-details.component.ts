@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeersService, BeerLocation, Drinker, Time } from '../beers.service';
 import { BarsService } from '../bars.service';
-import {Transactions, TransactionsService} from '../transactions.service';
+import {Transactions,Order, TransactionsService} from '../transactions.service';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,11 +19,12 @@ export class DrinkerDetailsComponent implements OnInit {
   beerLocations: BeerLocation[];
   manufacturer: string;
 
-  drinkerName:string
+  public drinkerName:string;
 
 
   peopleWhoDrink: Drinker[];
-  peopleSpendings: Transactions[]
+  peopleSpendings: Transactions[];
+  drinkerOrders: Order[];
 
   timeDistro: Time [];
 
@@ -39,6 +40,7 @@ export class DrinkerDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
 
       this.drinkerName=paramMap.get('drinker');
+
 
 
 

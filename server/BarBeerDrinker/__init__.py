@@ -21,6 +21,11 @@ def get_spending(name):
     return jsonify(database.get_spending(name))
 
 
+
+@app.route("/api/transaction/<drinker>/<tid>", methods=["GET"])
+def get_drinkerOrders(drinker,tid):
+    return jsonify(database.get_drinkerOrders(drinker,tid))
+
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):
     try:

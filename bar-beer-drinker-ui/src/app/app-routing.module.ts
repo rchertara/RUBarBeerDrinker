@@ -13,6 +13,8 @@ import { ManufacturerPageComponent} from './manufacturer-page/manufacturer-page.
 import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component'; // manufacturer detail page link
 import { ModificationPageComponent} from './modification-page/modification-page.component'; // modification page
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
+import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -57,12 +59,18 @@ const routes: Routes = [
   {
     path: 'drinker_page/:drinker',
     pathMatch:  'full',
-    component: DrinkerDetailsComponent// drinker page component
+    component: DrinkerDetailsComponent// drinker details component
   },
+  {
+    path: 'transaction/:tid', //trans
+    pathMatch:  'full',
+    component: TransactionsDetailsComponent //details of a Transactions for a drinker from a drinker in drinker details page
+  },
+
   {
     path: 'bartender_page',
     pathMatch:  'full',
-    component: BartenderPageComponent // drinker page component
+    component: BartenderPageComponent //
   },
   {
     path: 'manufacturer_page',

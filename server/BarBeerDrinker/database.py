@@ -28,6 +28,14 @@ def get_allDrinkers():
     with engine.connect() as con:
         rs = con.execute("SELECT DrinkerName from DrinkerTable;")
         return [dict(row) for row in rs]
+def get_drinkerOrders(drinker,tid):
+    with engine.connect() as con:
+        query= sql.text("select name, Quantity, Total from ItemsTable i, TransactionTable t1, \
+        (select t.ItemID as ItemID from TransactionTable t, DrinkerTable d \
+        where d.DrinkerName=:drinker AND t.TransactionID=:tid) q1 \
+        where q1.ItemID=i.ItemID AND q1.ItemID=t1.ItemID AND t1.TransactionID=:tid;")
+        rs=con.execute(query,tid=tid,drinker=drinker)
+        return [dict(row) for row in rs]
 
 def get_spending(name):
     with engine.connect() as con:
