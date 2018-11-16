@@ -94,6 +94,7 @@ const routes: Routes = [
     pathMatch:  'full',
     component: ManufacturerDetailComponent // details of manufacturer
   },
+
   {
     path: 'modification_page',
     pathMatch: 'full',

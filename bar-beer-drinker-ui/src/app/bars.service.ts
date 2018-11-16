@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import {BeerLocation} from './beers.service';
 
 export interface Bar {
   barName: string;
@@ -47,6 +48,9 @@ export class BarsService {
   }
 
   getBeerManufacturers() { //
-    return this.http.get<any[]>('/api/manufacture');
+    return this.http.get<any[]>('/api/manufacturer_page');
+  }
+  getStatesForManf(manf:string) { //
+    return this.http.get<BeerLocation[]>('/api/manufacturer_page/'+manf);
   }
 }

@@ -8,6 +8,15 @@ from BarBeerDrinker import database
 
 app = Flask(__name__)
 
+
+
+@app.route('/api/manufacturer_page', methods=["GET"])
+def get_allManfs():
+    return jsonify(database.get_allManfs())
+@app.route('/api/manufacturer_page/<name>', methods=["GET"])
+def get_allStatesForManf(name):
+    return jsonify(database.get_manfPageQury1(name))
+
 @app.route('/api/bar', methods=["GET"])
 def get_bars():
     return jsonify(database.get_bars())
@@ -29,6 +38,18 @@ def get_drinkerPageGraph(name):
 def get_drinkerPageQury3(drinkerName,barName):
     try:
         return jsonify(database.get_drinkerPageQury3(drinkerName,barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route('/api/bar-spendingsWeeks/<drinkerName>/<barName>', methods=["GET"]) #bar Page qury 1
+def get_drinkerPageQury3Weeks(drinkerName,barName):
+    try:
+        return jsonify(database.get_drinkerPageQury3Weeks(drinkerName,barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route('/api/bar-spendingsMonths/<drinkerName>/<barName>', methods=["GET"]) #bar Page qury 1
+def get_drinkerPageQury3Months(drinkerName,barName):
+    try:
+        return jsonify(database.get_drinkerPageQury3Months(drinkerName,barName))
     except Exception as e:
         return make_response(str(e), 500)
 

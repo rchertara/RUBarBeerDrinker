@@ -82,25 +82,6 @@ export class BeerDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  sortBy(selectedOption: string) {
-    if (selectedOption === 'low price') {
-      this.beerLocations.sort((a, b) => {
-        return a.price - b.price;
-      });
-    } else if (selectedOption === 'high price') {
-      this.beerLocations.sort((a, b) => {
-        return b.price - a.price;
-      });
-    } else if (selectedOption === 'low customer') {
-      this.beerLocations.sort((a, b) => {
-        return a.customers - b.customers;
-      });
-    } else if (selectedOption === 'high customer') {
-      this.beerLocations.sort((a, b) => {
-        return b.customers - a.customers;
-      });
-    }
-  }
 
 
 

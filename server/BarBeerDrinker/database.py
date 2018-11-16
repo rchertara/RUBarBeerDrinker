@@ -149,13 +149,52 @@ def get_barPageQury1(name):
 
 def get_drinkerPageQury3(drinkerName,barName):
   with engine.connect() as con:
-        query = sql.text('select BillID, b1.TransactionID, Total, Date from BillTable b1, \
+        query = sql.text('select BillID, b1.TransactionID, Total, date(Date) as Date from BillTable b1, \
         (select TransactionID, ItemID,t.BarLicense  from TransactionTable t, DrinkerTable d, BarTable b \
         where d.DrinkerName=:drinkerName AND d.DrinkerID=t.DrinkerID AND b.BarName=:barName AND b.BarLicense=t.BarLicense) q \
-        where b1.TransactionID=q.TransactionID order by week(Date);')
+        where b1.TransactionID=q.TransactionID group by Date order by date(Date);')
         rs = con.execute(query,barName=barName,drinkerName=drinkerName)
         results = [dict(row) for row in rs]
         return results
+def get_drinkerPageQury3Weeks(drinkerName,barName):
+  with engine.connect() as con:
+        query = sql.text('select BillID, b1.TransactionID, Total, week(Date) as Week from BillTable b1, \
+        (select TransactionID, ItemID,t.BarLicense  from TransactionTable t, DrinkerTable d, BarTable b \
+        where d.DrinkerName=:drinkerName AND d.DrinkerID=t.DrinkerID AND b.BarName=:barName AND b.BarLicense=t.BarLicense) q \
+        where b1.TransactionID=q.TransactionID group by Week order by week(Date);')
+        rs = con.execute(query,barName=barName,drinkerName=drinkerName)
+        results = [dict(row) for row in rs]
+        return results
+def get_drinkerPageQury3Months(drinkerName,barName):
+  with engine.connect() as con:
+        query = sql.text('select BillID, b1.TransactionID, Total, month(Date) as Month from BillTable b1, \
+        (select TransactionID, ItemID,t.BarLicense  from TransactionTable t, DrinkerTable d, BarTable b \
+        where d.DrinkerName=:drinkerName AND d.DrinkerID=t.DrinkerID AND b.BarName=:barName AND b.BarLicense=t.BarLicense) q \
+        where b1.TransactionID=q.TransactionID group by Month order by month(Date);')
+        rs = con.execute(query,barName=barName,drinkerName=drinkerName)
+        results = [dict(row) for row in rs]
+        return results
+
+
+def get_allManfs():
+  with engine.connect() as con:
+        query = sql.text('select Manf from ItemsTable')
+        rs = con.execute(query)
+        results = [dict(row) for row in rs]
+        return results
+
+def get_manfPageQury1(manfName):
+  with engine.connect() as con:
+        query = sql.text('select State, City, q.sum as Sum from BarTable b1, \
+        (select BarLicense, SUM(t.Quantity) as sum from TransactionTable t, ItemsTable i \
+        where i.Manf=:manfName AND t.ItemID=i.ItemID group by BarLicense)q \
+        where q.BarLicense=b1.BarLicense;') 
+        rs = con.execute(query,manfName=manfName)
+        results = [dict(row) for row in rs]
+        for r in results:
+            r['Sum'] = float(r['Sum'])
+        return results
+
 
 
 def get_bar_cities():

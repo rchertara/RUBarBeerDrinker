@@ -51,6 +51,12 @@ drinker:string;
   getDrinkerPageQury3(barName:string) {
     return this.http.get<any[]>('/api/bar-spendings/'+this.drinker+'/'+barName);
   }
+  getDrinkerPageQury3Weeks(barName:string) {
+    return this.http.get<any[]>('/api/bar-spendingsWeeks/'+this.drinker+'/'+barName);
+  }
+  getDrinkerPageQury3Months(barName:string) {
+    return this.http.get<any[]>('/api/bar-spendingsMonths/'+this.drinker+'/'+barName);
+  }
 
 
 }

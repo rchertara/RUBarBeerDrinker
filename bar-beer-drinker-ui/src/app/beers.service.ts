@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface BeerLocation {
-  bar: string;
-  price: number;
-  customers: number;
+ State:String
+ Location:String
 }
 export interface Drinker {
+  Name: string;
+}
+export interface Manf {
   Name: string;
 }
 export interface Time {
