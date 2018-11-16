@@ -43,19 +43,14 @@ export class BeersService {
     return this.http.get<Drinker[]>('/api/beers/');
   }
 
-  // getdrinkerSpending(name?: string): any { //
-  //   if (name) {
-  //     return this.http.get<Drinker>(`/api/drinker-page/${name}`);
-  //   }
-  //   return this.http.get<Drinker[]>('/api/drinker_page');
-  // }
+//  getdrinkerSpending(name?: string): any { //
+//   if (name) {
+//     return this.http.get<Drinker>(`/api/drinker-page/${name}`);
+//   }
+//   return this.http.get<Drinker[]>('/api/drinker_page');
+//  }
 
-  // getBeerManufacturers(beer?: string): any { //
-  //   if (beer) {
-  //     return this.http.get<Drinker>(`/api/beer-A/${beer}`);
-  //   }
-  //   return this.http.get<Drinker[]>('/api/beer-B');
-  // }
+
   getTime(beer?: string): any { //
     if (beer) {
       return this.http.get<Drinker>(`/api/beer/${beer}`);
