@@ -56,11 +56,11 @@ export class BeersService {
   //   }
   //   return this.http.get<Drinker[]>('/api/beer-B');
   // }
-  getTime(beer?: string): any { //
+  getTimeForBeer(beer : string): any { //
     if (beer) {
-      return this.http.get<Drinker>(`/api/beer/${beer}`);
+      return this.http.get<Drinker>(`/api/beers-time/${beer}`);
     }
-    return this.http.get<Drinker[]>('/api/beer');
+    return this.http.get<Drinker[]>('/api/beers-time/');
   }
 
 }

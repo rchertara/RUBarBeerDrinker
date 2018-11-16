@@ -25,8 +25,7 @@
         <tr>
           <td>{{ t.time }}</td>
           <td>{{ t.BarName}}</td>
-          <td>{{ t.TransactionID}}</td>
-
+          <td><a routerLink="/drinker_page/{{ t.TransactionID }}">{{ t.TransactionID}}</a></td>
 
         </tr>
       </ng-template>

@@ -13,7 +13,7 @@ def get_bars():
 
 def getBeerTime(beer):
     with engine.connect() as con:
-        query=sql.text('select b.time as time ,SUM(Quantity) as finalQ from BillsTable b, TransactionTable t, ItemsTable i \
+        query=sql.text('select b.time as time ,SUM(Quantity) as finalQ from BillTable b, TransactionTable t, ItemsTable i \
         where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(time) order by time;')
         rs = con.execute(query,beer=beer)
         results= [dict(row) for row in rs]
@@ -31,7 +31,7 @@ def get_allDrinkers():
 
 def get_spending(name):
     with engine.connect() as con:
-        query = sql.text("select BarName, t.TransactionID, time from BillsTable b, DrinkerTable d, TransactionTable t, BarTable b1 \
+        query = sql.text("select BarName, t.TransactionID, time from BillTable b, DrinkerTable d, TransactionTable t, BarTable b1 \
         where d.DrinkerName=:name AND d.DrinkerID=t.DrinkerID AND t.TransactionID=b.TransactionID AND b1.BarLicense=t.BarLicense group by t.BarLicense order by time;")
         rs=con.execute(query,name=name)
         results=[dict(row) for row in rs]
@@ -41,7 +41,7 @@ def get_spending(name):
 
 def get_sells(name):
     with engine.connect() as con:
-        query=sql.text("Select D.DrinkerName,B.totalCost from DrinkerTable D,BillsTable B limit 10 ")
+        query=sql.text("Select D.DrinkerName,B.totalCost from DrinkerTable D,BillTable B limit 10 ")
 
         rs = con.execute(query,name=name)
         return [dict(row) for row in rs]
@@ -97,12 +97,13 @@ def get_bars_selling(beer):
         
 def get_beerPageGraph(beer):
     with engine.connect() as con:
-        query = sql.text('SELECT DrinkerID, count(*) as frequentCount \
-                FROM FrequentTable \
-                GROUP BY BarLicense; \
-            ')
-        rs = con.execute(query)
+        query = sql.text('select b.Date, SUM(Quantity) as finalQ from BillTable b, TransactionTable t, ItemsTable i \
+        where i.name=:beer AND i.ItemID=t.ItemID AND b.TransactionID=t.TransactionID group by hour(Date) order by Date;')
+        rs = con.execute(query,beer=beer)
         results = [dict(row) for row in rs]
+        for r in results:
+                r['Date'] = str(r['Date'])
+                r['finalQ'] = str(r['finalQ'])
         return results
 
 

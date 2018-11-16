@@ -16,7 +16,7 @@ def get_bars():
 def get_allDrinkers():
     return jsonify(database.get_allDrinkers())
 
-@app.route("/api/drinker-page/<name>", methods=["GET"])
+@app.route("/api/drinker_page/<name>", methods=["GET"])
 def get_spending(name):
     return jsonify(database.get_spending(name))
 
@@ -109,6 +109,7 @@ def get_drinker(name):
         return make_response(str(e), 400)
     except Exception as e:
         return make_response(str(e), 500)
+        
 
 
 @app.route('/api/bars-selling/<beer>', methods=['GET'])
@@ -130,7 +131,7 @@ def get_bar_frequent_counts():
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/beers/<beer>', methods=['GET'])
+@app.route('/api/beers-time/<beer>', methods=['GET'])
 def get_beerPageGraph(beer):
     try:
         return jsonify(database.get_beerPageGraph(beer))

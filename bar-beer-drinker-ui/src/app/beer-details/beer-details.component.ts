@@ -39,24 +39,20 @@ export class BeerDetailsComponent implements OnInit {
           this.beerLocations = data;
         }
       );
-      this.barService.getFrequentCounts().subscribe(
-        data => {
-          console.log(data);
-          const bars = [];
-          const counts = [];
-          data.forEach(bar => {
-            bars.push(bar.bar);
-            counts.push(bar.frequentCount);
-          });
-        this.renderChart(bars, counts);
-        }
-      );
+
 
 
       this.beerService.getdrinkerForBeer(this.beerName)
         .subscribe(
           data => {
             this.peopleWhoDrink = data;
+          }
+        );
+
+      this.beerService.getTimeForBeer(this.beerName)
+        .subscribe(
+          data => {
+            this.timeDistro = data;
           }
         );
 
@@ -105,47 +101,7 @@ export class BeerDetailsComponent implements OnInit {
       });
     }
   }
-  renderChart(bars: string[], counts: number[]) {
-    Highcharts.chart('bargraph', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Frequenting count at bars'
-      },
-      xAxis: {
-        categories: bars,
-        title: {
-          text: 'Bar'
-        }
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Number of customers'
-        },
-        labels: {
-          overflow: 'justify'
-        }
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        data: counts
-      }]
-    });
-  }
+
 
 
 

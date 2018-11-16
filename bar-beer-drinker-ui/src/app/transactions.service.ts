@@ -28,7 +28,7 @@ export class TransactionsService {
 
   }
   getSpendings(drinker : string) {
-    return this.http.get<Transactions[]>('/api/drinker_page/'+drinker);
+    return this.http.get<Transactions[]>(`/api/drinker_page/${drinker}`);
 
   }
 
