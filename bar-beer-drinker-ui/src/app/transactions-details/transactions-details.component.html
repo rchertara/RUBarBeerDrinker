@@ -1,0 +1,22 @@
+<div class="container">
+  <br>
+
+  <br>
+  <p-table [value]="drinkerOrders" sortMode="multiple" sortField="price">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ItemName</th>
+        <th>Quantity</th>
+        <th>TotalCost</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-i>
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.Quantity}}</td>
+        <td>{{ i.Total}}</td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

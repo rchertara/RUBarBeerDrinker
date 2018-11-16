@@ -173,3 +173,8 @@ def get_drinker_info(drinker_name):
         if result is None:
             return None
         return dict(result)
+
+def get_manufacturer():
+    with engine.connect() as con:
+        rs = con.execute("select Manf from ItemsTable where Flag='B';")
+        return [dict(row) for row in rs]

@@ -150,3 +150,7 @@ def get_BeerTime(beer):
         return make_response(str(e), 400)
     except Exception as e:
         return make_response(str(e), 500)
+
+@app.route('/api/manufacturer', methods=['GET'])
+def get_manufacturer():
+    return jsonify(database.get_manufacturer())
