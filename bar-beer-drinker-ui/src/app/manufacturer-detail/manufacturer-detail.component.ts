@@ -12,6 +12,8 @@ import {BarsService} from '../bars.service';
 export class ManufacturerDetailComponent implements OnInit {
 
   beerLocations:BeerLocation[];
+  stateLocations:BeerLocation[];
+  cityLocations:BeerLocation[];
   manfName:string;
 
   constructor(
@@ -27,6 +29,16 @@ export class ManufacturerDetailComponent implements OnInit {
       this.barService.getStatesForManf(this.manfName).subscribe(
         data => {
           this.beerLocations = data;
+        }
+      );
+      this.barService.getStatesLikesManf(this.manfName).subscribe(
+        data => {
+          this.stateLocations = data;
+        }
+      );
+      this.barService.getCitiesLikesManf(this.manfName).subscribe(
+        data => {
+          this.cityLocations = data;
         }
       );
 

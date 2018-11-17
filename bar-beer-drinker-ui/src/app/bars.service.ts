@@ -30,13 +30,15 @@ export class BarsService {
   getBarPageQuery1(barName:string) {
     return this.http.get<any[]>('/api/bars/'+barName);
   }
-
   getBars() {
     return this.http.get<Bar[]>('/api/bar');
   }
 
   getBar(bar: string) {
     return this.http.get<Bar>('/api/bar/' + bar);
+  }
+  getBartenders() {
+    return this.http.get<any[]>('/api/bartender_page');
   }
 
   getMenu(bar: string) {
@@ -52,5 +54,11 @@ export class BarsService {
   }
   getStatesForManf(manf:string) { //
     return this.http.get<BeerLocation[]>('/api/manufacturer_page/'+manf);
+  }
+  getStatesLikesManf(manf:string) { //
+    return this.http.get<BeerLocation[]>('/api/manufacturer_pageLikesStates/'+manf);
+  }
+  getCitiesLikesManf(manf:string) { //
+    return this.http.get<BeerLocation[]>('/api/manufacturer_pageLikesCities/'+manf);
   }
 }

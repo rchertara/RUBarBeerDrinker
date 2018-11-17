@@ -33,6 +33,49 @@
   </p-table>
 </div>
 
+<div class="container">
+  <br>
+
+  <br>
+  <p-table [value]="stateLocations" sortMode="multiple" sortField="price">
+    <ng-template pTemplate="header">
+      <tr>
+
+        <th>Top States that like this manufacturer's beers</th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-m>
+      <tr>
+        <td>{{m.State}}</td>
+
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="container">
+  <br>
+
+  <br>
+  <p-table [value]="cityLocations" sortMode="multiple" sortField="price">
+    <ng-template pTemplate="header">
+      <tr>
+
+
+        <th>Top Cities that like this manufacturer's beers</th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-m>
+      <tr>
+        <td>{{m.City}}</td>
+
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
 
 
 

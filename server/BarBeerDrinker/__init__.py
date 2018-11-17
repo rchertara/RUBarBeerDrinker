@@ -17,6 +17,18 @@ def get_allManfs():
 def get_allStatesForManf(name):
     return jsonify(database.get_manfPageQury1(name))
 
+@app.route('/api/manufacturer_pageLikesStates/<name>', methods=["GET"])
+def get_manfLikesState(name):
+    return jsonify(database.get_manfPageQuryStates(name))
+
+@app.route('/api/manufacturer_pageLikesCities/<name>', methods=["GET"])
+def get_manfLikesCities(name):
+    return jsonify(database.get_manfPageQuryCities(name))
+
+@app.route('/api/bartender_page', methods=["GET"])
+def get_allBartenders():
+    return jsonify(database.get_bartenders())
+
 @app.route('/api/bar', methods=["GET"])
 def get_bars():
     return jsonify(database.get_bars())

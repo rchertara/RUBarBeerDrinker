@@ -78,9 +78,13 @@ const routes: Routes = [
     pathMatch:  'full',
     component: BarSpendingsComponent //details of a Transactions for a drinker from a drinker in drinker details page
   },
-
   {
     path: 'bartender_page',
+    pathMatch:  'full',
+    component: BartenderPageComponent //
+  },
+  {
+    path: 'bartender_page/:bartender',
     pathMatch:  'full',
     component: BartenderPageComponent //
   },

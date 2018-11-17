@@ -10,6 +10,10 @@ def get_bars():
     with engine.connect() as con:
         rs = con.execute("SELECT * from BarTable;")
         return [dict(row) for row in rs]
+def get_bartenders():
+    with engine.connect() as con:
+        rs = con.execute("SELECT BartenderName from BartenderTable;")
+        return [dict(row) for row in rs]
 
 def getBeerTime(beer):
     with engine.connect() as con:
@@ -194,8 +198,18 @@ def get_manfPageQury1(manfName):
         for r in results:
             r['Sum'] = float(r['Sum'])
         return results
-
-
+def get_manfPageQuryStates(manfName):
+  with engine.connect() as con:
+        query = sql.text('select * From LikesTable limit 10 ') 
+        rs = con.execute(query,manfName=manfName)
+        results = [dict(row) for row in rs]
+        return results
+def get_manfPageQuryCities(manfName):
+  with engine.connect() as con:
+        query = sql.text('select * from ItemsTable limit 10') 
+        rs = con.execute(query,manfName=manfName)
+        results = [dict(row) for row in rs]
+        return results
 
 def get_bar_cities():
     with engine.connect() as con:

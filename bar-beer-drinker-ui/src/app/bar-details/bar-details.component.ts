@@ -68,13 +68,13 @@ export class BarDetailsComponent implements OnInit {
       xAxis: {
         categories: name,
         title: {
-          text: ''
+          text: 'names of spenders'
         }
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Quantity'
+          text: 'Amount spent'
         },
         labels: {
           overflow: 'justify'

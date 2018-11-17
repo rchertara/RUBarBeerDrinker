@@ -1,3 +1,20 @@
-<p>
-  bartender-page works!
-</p>
+<div class="container">
+  <br>
+  <span class="font-weight-light result-count">All Bartenders</span>
+  <br>
+  <p-table [value]="allBartenders" sortMode="multiple" sortField="price">
+    <ng-template pTemplate="header">
+      <tr>
+
+        <th>Bartender Name</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-b>
+      <tr>
+        <td><a routerLink="/bartender-details/{{ b.BartenderName}}">{{b.BartenderName}}</a></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
