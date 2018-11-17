@@ -30,6 +30,10 @@ export class BarsService {
   getBarPageQuery1(barName:string) {
     return this.http.get<any[]>('/api/bars/'+barName);
   }
+  getBarPageQuery2(barName:string,day:string) {
+
+    return this.http.get<any[]>('/api/bars/'+barName+'/'+day);
+  }
   getBars() {
     return this.http.get<Bar[]>('/api/bar');
   }
@@ -58,7 +62,5 @@ export class BarsService {
   getStatesLikesManf(manf:string) { //
     return this.http.get<BeerLocation[]>('/api/manufacturer_pageLikesStates/'+manf);
   }
-  getCitiesLikesManf(manf:string) { //
-    return this.http.get<BeerLocation[]>('/api/manufacturer_pageLikesCities/'+manf);
-  }
+
 }

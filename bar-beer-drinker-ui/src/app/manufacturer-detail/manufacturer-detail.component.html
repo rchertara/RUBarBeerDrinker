@@ -18,7 +18,7 @@
       <tr>
         <th>State</th>
         <th>City</th>
-        <th>Sum</th>
+        <th>Sales</th>
         
       </tr>
     </ng-template>
@@ -26,7 +26,7 @@
       <tr>
         <td>{{m.State}}</td>
         <td>{{m.City}}</td>
-        <td>{{m.Sum}}</td>
+        <td>{{m.Sales}}</td>
 
       </tr>
     </ng-template>
@@ -41,35 +41,15 @@
     <ng-template pTemplate="header">
       <tr>
 
-        <th>Top States that like this manufacturer's beers</th>
-
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-m>
-      <tr>
-        <td>{{m.State}}</td>
-
-
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
-<div class="container">
-  <br>
-
-  <br>
-  <p-table [value]="cityLocations" sortMode="multiple" sortField="price">
-    <ng-template pTemplate="header">
-      <tr>
-
-
-        <th>Top Cities that like this manufacturer's beers</th>
+        <th>Top Cities that like this manf</th>
+        <th>Top States that like this manf(state's intials)</th>
 
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-m>
       <tr>
         <td>{{m.City}}</td>
+        <td>{{m.State}}</td>
 
 
       </tr>

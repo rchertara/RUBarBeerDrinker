@@ -149,7 +149,23 @@ def get_barPageQury1(name):
         results = [dict(row) for row in rs]
         for r in results:
                 r['finalQ']=float(r['finalQ'])
-        return results   
+        return results
+
+def get_barPageQury2(barName,day):
+     with engine.connect() as con:
+        query = sql.text("select name, q3.finalQ as finalQ from ItemsTable i, \
+        (select t1.ItemID as ItemID, SUM(Quantity) as finalQ from TransactionTable t1, \
+        (select q.TransactionID as TID from BillTable b1, \
+        (select TransactionID from BarTable b, TransactionTable t \
+        where b.BarName=:barName AND b.BarLicense=t.BarLicense) q \
+        where b1.TransactionID=q.TransactionID AND dayname(b1.Date)=:day) q2 \
+        where q2.TID=t1.TransactionID group by t1.ItemID order by finalQ DESC) q3 \
+        where q3.ItemID=i.ItemID AND i.Flag='B' limit 10;")
+        rs = con.execute(query,barName=barName,day=day)
+        results = [dict(row) for row in rs]
+        for r in results:
+                r['finalQ']=float(r['finalQ'])
+        return results 
 
 def get_drinkerPageQury3(drinkerName,barName):
   with engine.connect() as con:
@@ -189,27 +205,34 @@ def get_allManfs():
 
 def get_manfPageQury1(manfName):
   with engine.connect() as con:
-        query = sql.text('select State, City, q.sum as Sum from BarTable b1, \
-        (select BarLicense, SUM(t.Quantity) as sum from TransactionTable t, ItemsTable i \
-        where i.Manf=:manfName AND t.ItemID=i.ItemID group by BarLicense)q \
-        where q.BarLicense=b1.BarLicense;') 
+        query = sql.text('select City, State, q3.finalQ as Sales from BarTable b4, \
+        (select BarLicense, SUM(Total) as finalQ from TransactionTable t2, \
+        (select q.TransactionID as TID from BillTable b, (select TransactionID from TransactionTable t, ItemsTable i \
+        where i.Manf=:manfName AND t.ItemID=i.ItemID)q \
+        where q.TransactionID=b.TransactionID AND b.Date between adddate(now(),-7) and now()) q2 \
+        where t2.TransactionID=q2.TID group by BarLicense order by finalQ) q3 \
+        where q3.BarLicense=b4.BarLicense limit 10;') 
         rs = con.execute(query,manfName=manfName)
         results = [dict(row) for row in rs]
         for r in results:
-            r['Sum'] = float(r['Sum'])
+            r['Sales'] = float(r['Sales'])
         return results
-def get_manfPageQuryStates(manfName):
+def get_manfPageQuryStates(manfName): #check this one for sure!!!!
   with engine.connect() as con:
-        query = sql.text('select * From LikesTable limit 10 ') 
+        query = sql.text('select City, State, q3.finalQ from BarTable b2, \
+        (select BarLicense, SUM(Quantity) as finalQ from TransactionTable t1, \
+        (select q1.TransactionID as TID from BillTable b, \
+        (select TransactionID from TransactionTable t, \
+        (select DrinkerID, i.ItemID as ItemID from ItemsTable i, LikesTable l \
+        where i.Manf=:manfName AND i.ItemID=l.ItemID) q \
+        where t.DrinkerID=q.DrinkerID AND t.ItemID=q.ItemID) q1 \
+        where b.TransactionID=q1.TransactionID and b.Date between adddate(now(),-7) and now()) q2 \
+        where t1.TransactionID=q2.TID group by BarLicense order by finalQ) q3 \
+        where b2.BarLicense=q3.BarLicense limit 10;')
         rs = con.execute(query,manfName=manfName)
         results = [dict(row) for row in rs]
         return results
-def get_manfPageQuryCities(manfName):
-  with engine.connect() as con:
-        query = sql.text('select * from ItemsTable limit 10') 
-        rs = con.execute(query,manfName=manfName)
-        results = [dict(row) for row in rs]
-        return results
+
 
 def get_bar_cities():
     with engine.connect() as con:

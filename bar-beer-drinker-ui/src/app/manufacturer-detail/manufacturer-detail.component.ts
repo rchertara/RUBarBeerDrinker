@@ -36,11 +36,7 @@ export class ManufacturerDetailComponent implements OnInit {
           this.stateLocations = data;
         }
       );
-      this.barService.getCitiesLikesManf(this.manfName).subscribe(
-        data => {
-          this.cityLocations = data;
-        }
-      );
+
 
 
 
