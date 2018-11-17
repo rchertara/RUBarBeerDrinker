@@ -59,6 +59,65 @@ export class BarDetailsComponent implements OnInit {
         }
       );
 
+          this.barService.getBarPageQuery2(this.barName,'Monday').subscribe( data => {
+        console.log(data);
+        const names = [];
+        const quantity = [];
+
+        data.forEach(Name=> {
+          quantity.push(Name.finalQ);
+          names.push(Name.name);
+        });
+
+        this.renderChart2(quantity, names);
+      })
+
+      this.barService.getBarPageQuery3a(this.barName).subscribe( data => {
+        console.log(data);
+        const names = [];
+        const quantity = [];
+        // {
+        //   "Count": 22,
+        //   "Time": "11:03:39"
+        // },
+        data.forEach(Name=> {
+          quantity.push(Name.Count);
+          names.push(Name.Time);
+        });
+
+        this.renderChart3a(quantity, names);
+      })
+
+      this.barService.getBarPageQuery3b(this.barName).subscribe( data => {
+        console.log(data);
+        const names = [];
+        const quantity = [];
+        // {
+        //   "theCount": 11,
+        //   "theDay": "Saturday",
+        //   "theWeek": 12
+        // },
+
+        data.forEach(Name=> {
+          quantity.push(Name.theCount);
+          names.push(Name.theWeek);
+        });
+
+        this.renderChart3b(quantity, names);
+      })
+      this.barService.getBarPageQuery4(this.barName).subscribe( data => { //GET BACK TO THIS
+        console.log(data);
+        const names = [];
+        const quantity = [];
+
+        // data.forEach(Name=> {
+        //   quantity.push(Name.theCount);
+        //   names.push(Name.theWeek);
+        // });
+
+        this.renderChart4(quantity, names);
+      })
+
 
 
 
@@ -93,6 +152,7 @@ export class BarDetailsComponent implements OnInit {
           'value':'Sunday'
         },
       ]
+
 
     });
   }
@@ -169,18 +229,141 @@ export class BarDetailsComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Top 10 Beer Brands'
+        text: 'Top 10 Beer Brands on this Day'
       },
       xAxis: {
         categories: name,
         title: {
-          text: 'names of spenders'
+          text: 'names of beers'
         }
       },
       yAxis: {
         min: 0,
         title: {
           text: 'Amount bought'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: quantity
+      }]
+    });
+  }
+  renderChart3a(quantity: number[], name: string[]) {
+    Highcharts.chart('bargraph3a', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Busy Times in a Day'
+      },
+      xAxis: {
+        categories: name,
+        title: {
+          text: 'times'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Amount bought'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: quantity
+      }]
+    });
+  }
+  renderChart3b(quantity: number[], name: string[]) {
+    Highcharts.chart('bargraph3b', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Busy Times in a week'
+      },
+      xAxis: {
+        categories: name,
+        title: {
+          text: 'times'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Amount bought'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: quantity
+      }]
+    });
+  }
+  renderChart4(quantity: number[], name: string[]) {
+    Highcharts.chart('bargraph4', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Fraction of inventory sold each day of week'
+      },
+      xAxis: {
+        categories: name,
+        title: {
+          text: 'days'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Fraction of Inventory'
         },
         labels: {
           overflow: 'justify'

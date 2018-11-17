@@ -7,12 +7,11 @@
 
 <div class="container">
 
-  <p-table [value]="bars">
+  <p-table [value]="bars"[paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
         <tr>
           <th>barName</th>
-          <th>barLicence</th>
-          <th>State</th>
+
 
         </tr>
     </ng-template>
@@ -23,12 +22,54 @@
               {{ bar.BarName }}
             </a>
           </td>
-          <td>{{ bar.BarLicense }}</td>
-          <td>{{ bar.State }}</td>
+
 
         </tr>
     </ng-template>
   </p-table>
 </div>
+
+<br><br>
+
+<div>
+  <p-dropdown class="text-left"[options]="beerOptions" (onChange)="selectBeerBrand(($event.value))"></p-dropdown>
+</div>
+
+<div>
+  <p-dropdown class="text-left" [options]="dayOptions" (onChange)="selectDay(($event.value))" ></p-dropdown>
+</div>
+
+<div>
+  <p-button label="Search For Top Bars for this beer and day" (onClick)="doBarPageQury5()"></p-button>
+</div>
+
+<div class="container">
+  <br>
+  <div>
+    <span class="font-weight-light result-count">Top 10 Bars that sell this beer on this day based on sales </span>
+
+  </div>
+  <br>
+
+
+  <p-table [value]="beerFromThisDay" >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Bar</th>
+        <th>sales</th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bar>
+      <tr>
+        <td>{{ bar.BarLicense }}</td>
+        <td>{{ bar.Price }}</td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
 
 <br><br>

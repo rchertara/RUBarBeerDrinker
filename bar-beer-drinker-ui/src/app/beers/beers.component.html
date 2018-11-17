@@ -3,9 +3,7 @@
     <h1 class="display-4">Find your favorite beers!</h1>
     <p class="lead">This page can be used to see all the beers in our system
       manufacturer.</p>
-    <p-dropdown *ngIf="manufacturerOptions" [ngClass]="{ 'no-option-selected': selectedManufacturer === undefined || selectedManufacturer === null }"
-      placeholder="Filter by manufacturer" [options]="manufacturerOptions" [(ngModel)]="selectedManufacturer" showClear="true"
-      (onChange)="filterBeers($event.value)"></p-dropdown>
+
   </div>
 </div>
 <br>

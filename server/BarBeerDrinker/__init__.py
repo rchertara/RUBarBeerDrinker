@@ -71,10 +71,36 @@ def get_barPageQury1(barName):
         return jsonify(database.get_barPageQury1(barName))
     except Exception as e:
         return make_response(str(e), 500)
-@app.route('/api/bars/<barName>/<day>', methods=['GET']) #bar Page qury 1
+@app.route('/api/bars/<barName>/<day>', methods=['GET']) #bar Page qury 2
 def get_barPageQury2(barName,day):
     try:
         return jsonify(database.get_barPageQury2(barName,day))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route('/api/bars3a/<barName>', methods=['GET']) #bar Page qury 3a
+def get_barPageQury3a(barName):
+    try:
+        return jsonify(database.get_barPageQury3a(barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bars3b/<barName>',methods=['GET']) #bar Page qury 3b
+def get_barPageQury3b(barName):
+    try:
+        return jsonify(database.get_barPageQury3b(barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bars4/<barName>',methods=['GET']) #bar Page qury 4
+def get_barPageQury4(barName):
+    try:
+        return jsonify(database.get_barPageQury4(barName))
+    except Exception as e:
+        return make_response(str(e), 500)
+@app.route('/api/bars5/<beerName>/<day>',methods=['GET']) #bar Page qury 4
+def get_barPageQury5(beerName,day):
+    try:
+        return jsonify(database.get_barPageQury5(beerName,day))
     except Exception as e:
         return make_response(str(e), 500)
 

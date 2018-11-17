@@ -34,6 +34,26 @@ export class BarsService {
 
     return this.http.get<any[]>('/api/bars/'+barName+'/'+day);
   }
+  getBarPageQuery3a(barName:string) {
+
+    return this.http.get<any[]>('/api/bars3a/'+barName);
+  }
+  getBarPageQuery3b(barName:string) {
+
+    return this.http.get<any[]>('/api/bars3b/'+barName);
+  }
+  getBarPageQuery4(barName:string) {
+
+    return this.http.get<any[]>('/api/bars4/'+barName);
+  }
+  getBarPageQuery5(beerName:string,day:string) {
+    console.log(beerName);
+    console.log(day);
+    return this.http.get<any[]>('/api/bars5/'+beerName+'/'+day);
+  }
+
+
+
   getBars() {
     return this.http.get<Bar[]>('/api/bar');
   }

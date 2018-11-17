@@ -165,7 +165,44 @@ def get_barPageQury2(barName,day):
         results = [dict(row) for row in rs]
         for r in results:
                 r['finalQ']=float(r['finalQ'])
-        return results 
+        return results
+def get_barPageQury3a(barName): #i think this is wrong
+     with engine.connect() as con:
+        query = sql.text("select Time, Count(b1.TransactionID) as Count from BillTable b1, \
+        (select t.TransactionID as TransactionID from BarTable b, TransactionTable t \
+        where b.BarName=:barName AND b.BarLicense=t.BarLicense)q \
+        where q.TransactionID=b1.TransactionID group by b1.TransactionID order by Time;")
+        rs = con.execute(query,barName=barName)
+        results = [dict(row) for row in rs]
+        for r in results:
+                r['Time']=str(r['Time'])
+        return results
+def get_barPageQury3b(barName):#i think this is wrong
+     with engine.connect() as con:
+        query = sql.text("select dayname(Time) as theDay, week(Date) as theWeek ,Count(b1.TransactionID) as theCount from BillTable b1, \
+        (select t.TransactionID as TransactionID from BarTable b, TransactionTable t \
+        where b.BarName=:barName AND b.BarLicense=t.BarLicense)q \
+        where q.TransactionID=b1.TransactionID group by b1.TransactionID order by week(Date);")
+        rs = con.execute(query,barName=barName)
+        results = [dict(row) for row in rs]
+        return results
+def get_barPageQury4(barName):
+     with engine.connect() as con:
+        query = sql.text("select Quantity from SellsTable limit 10 ")
+        rs = con.execute(query,barName=barName)
+        results = [dict(row) for row in rs]
+        for r in results:
+                if (r['Quantity'] !='null') :
+                        r['Quantity']=float(r['Quantity'])
+                else:
+                        r['Quantity']=0
+        return results
+def get_barPageQury5(beerName,day):
+     with engine.connect() as con:
+        query = sql.text("select * from SellsTable limit 10 ")
+        rs = con.execute(query,beerName=beerName,day=day)
+        results = [dict(row) for row in rs]
+        return results
 
 def get_drinkerPageQury3(drinkerName,barName):
   with engine.connect() as con:
@@ -198,7 +235,7 @@ def get_drinkerPageQury3Months(drinkerName,barName):
 
 def get_allManfs():
   with engine.connect() as con:
-        query = sql.text('select Manf from ItemsTable')
+        query = sql.text('select Manf from ItemsTable where Flag="B";')
         rs = con.execute(query)
         results = [dict(row) for row in rs]
         return results
@@ -217,7 +254,7 @@ def get_manfPageQury1(manfName):
         for r in results:
             r['Sales'] = float(r['Sales'])
         return results
-def get_manfPageQuryStates(manfName): #check this one for sure!!!!
+def get_manfPageQuryStates(manfName): #check this one for sure!!!! this shit is wrong 
   with engine.connect() as con:
         query = sql.text('select City, State, q3.finalQ from BarTable b2, \
         (select BarLicense, SUM(Quantity) as finalQ from TransactionTable t1, \

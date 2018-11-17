@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import {ButtonModule} from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 
@@ -50,6 +50,7 @@ import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
     HttpClientModule,
     FormsModule,
     DropdownModule,
+    ButtonModule,
     TableModule,
     AppRoutingModule
   ],
