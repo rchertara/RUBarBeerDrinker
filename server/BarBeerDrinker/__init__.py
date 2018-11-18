@@ -8,6 +8,9 @@ from BarBeerDrinker import database
 
 app = Flask(__name__)
 
+@app.route('/api/get_TransTable', methods=["GET"])
+def get_TransTable():
+    return jsonify(database.get_TransTable())
 
 @app.route('/api/get_SellsTable', methods=["GET"])
 def get_SellsTable():

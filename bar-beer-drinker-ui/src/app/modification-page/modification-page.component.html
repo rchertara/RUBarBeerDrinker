@@ -7,7 +7,7 @@
   <div >
     <h1>BarTable</h1>
 
-    <p-table [value]="allBars"[paginator]="true" [rows]="10">
+    <p-table [value]="allBars"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BarName</th>
@@ -45,7 +45,7 @@
   <div >
     <h1>DrinkerTable</h1>
 
-    <p-table [value]="allDrinkers"[paginator]="true" [rows]="10">
+    <p-table [value]="allDrinkers"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>DrinkerName</th>
@@ -75,7 +75,7 @@
   <div >
     <h1>ItemsTable</h1>
 
-    <p-table [value]="allItems"[paginator]="true" [rows]="10">
+    <p-table [value]="allItems"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>ItemID</th>
@@ -106,7 +106,7 @@
   <div >
     <h1>BartenderTable</h1>
 
-    <p-table [value]="allBartenders"[paginator]="true" [rows]="10">
+    <p-table [value]="allBartenders"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BartenderName</th>
@@ -140,7 +140,7 @@
   <div >
     <h1>BillTable</h1>
 
-    <p-table [value]="allBills"[paginator]="true" [rows]="10">
+    <p-table [value]="allBills"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BillID</th>
@@ -177,7 +177,7 @@
   <div >
     <h1>FrequentTable</h1>
 
-    <p-table [value]="allFreq"[paginator]="true" [rows]="10">
+    <p-table [value]="allFreq"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BarLicense</th>
@@ -205,7 +205,7 @@
   <div >
     <h1>LikesTable</h1>
 
-    <p-table [value]="allLikes"[paginator]="true" [rows]="10">
+    <p-table [value]="allLikes"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>DrinkerID</th>
@@ -233,7 +233,7 @@
   <div >
     <h1>Operations</h1>
 
-    <p-table [value]="allops"[paginator]="true" [rows]="10">
+    <p-table [value]="allops"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BarLicense</th>
@@ -262,7 +262,7 @@
   <div >
     <h1>Works</h1>
 
-    <p-table [value]="allworks"[paginator]="true" [rows]="10">
+    <p-table [value]="allworks"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BarLicense</th>
@@ -294,7 +294,7 @@
   <div >
     <h1>SellsTable</h1>
 
-    <p-table [value]="allsells"[paginator]="true" [rows]="10">
+    <p-table [value]="allsells"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
           <th>BarLicense</th>
@@ -323,21 +323,30 @@
   <div >
     <h1>TransactionTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allTrans"[paginator]="true" [rows]="50">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>TransactionID</th>
+          <th>BarLicense</th>
+          <th>BartenderID</th>
+          <th>DrinkerID</th>
+          <th>ItemID</th>
+          <th>Quantity</th>
+          <th>Total</th>
+
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-t>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{t.TransactionID}}</td>
+          <td>{{t.BarLicense}}</td>
+          <td>{{t.BartenderID}}</td>
+          <td>{{t.DrinkerID}}</td>
+          <td>{{t.ItemID}}</td>
+          <td>{{t.Quantity}}</td>
+          <td>{{t.Total}}</td>
 
 
         </tr>

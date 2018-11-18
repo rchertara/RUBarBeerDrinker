@@ -6,6 +6,11 @@ from BarBeerDrinker import config
 
 engine = create_engine(config.database_uri)
 
+def get_TransTable():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from TransactionTable;")
+        results= [dict(row) for row in rs]
+        return results
 
 def get_SellsTable():
     with engine.connect() as con:
@@ -20,7 +25,7 @@ def get_works():
 
 def get_ops():
     with engine.connect() as con:
-        rs = con.execute("SELECT * from Operations;")
+        rs = con.execute("SELECT * from Operation;")
         results= [dict(row) for row in rs]
         return results
 def get_Likes():
@@ -210,6 +215,8 @@ def get_barPageQury2(barName,day):
         for r in results:
                 r['finalQ']=float(r['finalQ'])
         return results
+
+        
 def get_barPageQury3a(barName): #i think this is wrong
      with engine.connect() as con:
         query = sql.text("select Time, Count(b1.TransactionID) as Count from BillTable b1, \
@@ -232,14 +239,9 @@ def get_barPageQury3b(barName):#i think this is wrong
         return results
 def get_barPageQury4(barName):
      with engine.connect() as con:
-        query = sql.text("select Quantity from SellsTable limit 10 ")
+        query = sql.text("select * from BarTable limit 10")
         rs = con.execute(query,barName=barName)
         results = [dict(row) for row in rs]
-        for r in results:
-                if (r['Quantity'] !='null') :
-                        r['Quantity']=float(r['Quantity'])
-                else:
-                        r['Quantity']=0
         return results
 
 def get_barPageQury5(beerName,day):

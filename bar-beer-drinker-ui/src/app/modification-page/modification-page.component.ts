@@ -23,6 +23,7 @@ export class ModificationPageComponent implements OnInit {
   allops:any[];
   allworks:any[];
   allsells:any[];
+  allTrans:any[];
 
 
 
@@ -93,6 +94,12 @@ export class ModificationPageComponent implements OnInit {
     this.transService.getsells().subscribe(
       data => {
         this.allsells= data;
+
+      }
+    );
+    this.transService.gettrans().subscribe(
+      data => {
+        this.allTrans= data;
 
       }
     );
