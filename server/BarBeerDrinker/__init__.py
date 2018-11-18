@@ -9,7 +9,9 @@ from BarBeerDrinker import database
 app = Flask(__name__)
 
 
-
+@app.route('/api/get_Items', methods=["GET"])
+def get_allItems():
+    return jsonify(database.get_allItems())
 @app.route('/api/manufacturer_page', methods=["GET"])
 def get_allManfs():
     return jsonify(database.get_allManfs())

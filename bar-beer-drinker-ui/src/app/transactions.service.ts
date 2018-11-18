@@ -29,6 +29,13 @@ drinker:string;
     public http: HttpClient
   ) { }
 
+
+
+  getItems() {
+    return this.http.get<any[]>('/api/get_Items');
+
+  }
+
   getTransactions() {
     return this.http.get<Transactions[]>('/api/drinker_page');
 

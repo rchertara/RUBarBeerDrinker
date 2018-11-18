@@ -14,7 +14,10 @@ import {TransactionsService} from '../transactions.service';
 export class ModificationPageComponent implements OnInit {
 
   allBars:any[];
-  allDrinkers:any[]
+  allDrinkers:any[];
+  allItems:any[];
+  allBartenders:any[];
+
 
 
   allBeers:any[];
@@ -25,13 +28,33 @@ export class ModificationPageComponent implements OnInit {
               private route: ActivatedRoute) {
 
 
-
+    this.barService.getBars().subscribe(
+      data => {
+        this.allBars=data;
+      },
+      error => {
+        alert('Could not retrieve a list of bars');
+      }
+    );
     this.transService.getTransactions().subscribe(
       data => {
         this.allDrinkers = data;
 
       }
     );
+    this.transService.getItems().subscribe(
+      data => {
+        this.allItems = data;
+
+      }
+    );
+    this.barService.getBartenders().subscribe(
+      data => {
+        this.allBartenders = data;
+
+      }
+    );
+
 
   }
 

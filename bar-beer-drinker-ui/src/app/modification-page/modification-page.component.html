@@ -75,21 +75,24 @@
   <div >
     <h1>ItemsTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allItems"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>ItemID</th>
+          <th>name</th>
+          <th>Flag</th>
+          <th>Manf</th>
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-i>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{i.ItemID}}</td>
+          <td>{{i.name}}</td>
+          <td>{{i.Flag}}</td>
+          <td>{{i.Manf}}</td>
+
 
 
         </tr>
@@ -103,20 +106,27 @@
   <div >
     <h1>BartenderTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allBartenders"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>BartenderName</th>
+          <th>BartenderID</th>
+          <th>State</th>
+
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-b>
         <tr>
           <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
+            {{ b.BartenderName }}
+          </td>
+          <td>
+            {{ b.BartenderID }}
+          </td>
+          <td>
+            {{ b.State }}
           </td>
 
 

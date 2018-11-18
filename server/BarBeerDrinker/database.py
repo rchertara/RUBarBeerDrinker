@@ -6,13 +6,17 @@ from BarBeerDrinker import config
 
 engine = create_engine(config.database_uri)
 
+def get_allItems():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from ItemsTable;")
+        return [dict(row) for row in rs]
 def get_bars():
     with engine.connect() as con:
         rs = con.execute("SELECT * from BarTable;")
         return [dict(row) for row in rs]
 def get_bartenders():
     with engine.connect() as con:
-        rs = con.execute("SELECT BartenderName from BartenderTable;")
+        rs = con.execute("SELECT * from BartenderTable;")
         return [dict(row) for row in rs]
 def get_bartendersShifts():
     with engine.connect() as con:
@@ -228,7 +232,14 @@ def get_bartenderPageQury1(bar,tender):
         return results
 def get_bartenderPageQury2(bar,StartTime,CloseTime,Day):
      with engine.connect() as con:
-        query = sql.text("select Start,Close from Works where Start=:StartTime and Close=:CloseTime")
+        query = sql.text("select BartenderName, q4.finalQ from BartenderTable b5, \
+        (select q1.BartenderID, SUM(Quantity) as finalQ from TransactionTable t2, \
+        (select q.TransactionID as TransactionID ,q.BartenderID as BartenderID, q.ItemID from Works w, \
+        (select TransactionID, t.BartenderID as BartenderID, t.ItemID as ItemID from BarTable b, TransactionTable t, ItemsTable i \
+        where b.BarName='Mysterious Falcon Bar' AND b.BarLicense=t.BarLicense AND i.Flag='B' AND i.ItemID=t.ItemID) q \
+        where w.Day='Fri' AND q.BartenderID=w.BartenderID AND Start='08:00:00' AND Close='23:00:00') q1 \
+        where t2.BartenderID=q1.BartenderID AND t2.TransactionID=q1.TransactionID AND t2.ItemID=q1.ItemID group by q1.BartenderID order by finalQ) q4 \
+        where q4.BartenderID=b5.BartenderID;")
         rs = con.execute(query,bar=bar,StartTime=StartTime,CloseTime=CloseTime,Day=Day)
         results = [dict(row) for row in rs]
         return results
