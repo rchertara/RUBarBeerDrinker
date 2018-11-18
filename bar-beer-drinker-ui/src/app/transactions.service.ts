@@ -29,8 +29,32 @@ drinker:string;
     public http: HttpClient
   ) { }
 
+  getsells() {
+    return this.http.get<any[]>('/api/get_SellsTable');
 
+  }
 
+  getworks() {
+    return this.http.get<any[]>('/api/get_works');
+
+  }
+
+  getops() {
+    return this.http.get<any[]>('/api/get_ops');
+
+  }
+  getLikes() {
+    return this.http.get<any[]>('/api/get_Likes');
+
+  }
+  getFreq() {
+    return this.http.get<any[]>('/api/get_Freq');
+
+  }
+  getBills() {
+    return this.http.get<any[]>('/api/get_Bills');
+
+  }
   getItems() {
     return this.http.get<any[]>('/api/get_Items');
 

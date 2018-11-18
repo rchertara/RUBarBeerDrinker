@@ -140,21 +140,31 @@
   <div >
     <h1>BillTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allBills"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>BillID</th>
+          <th>TransactionID</th>
+          <th>Total</th>
+          <th>Tip</th>
+          <th>TotalCost</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>DateTime</th>
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-b>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{b.BillID}}</td>
+          <td>{{b.TransactionID}}</td>
+          <td>{{b.Total}}</td>
+          <td>{{b.Tip}}</td>
+          <td>{{b.TotalCost}}</td>
+          <td>{{b.Date}}</td>
+          <td>{{b.Time}}</td>
+          <td>{{b.DateTime}}</td>
 
 
         </tr>
@@ -167,21 +177,21 @@
   <div >
     <h1>FrequentTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allFreq"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>BarLicense</th>
+          <th>DrinkerID</th>
+
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-f>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{f.BarLicense}}</td>
+          <td>{{f.DrinkerID}}</td>
+
 
 
         </tr>
@@ -195,21 +205,21 @@
   <div >
     <h1>LikesTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allLikes"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>DrinkerID</th>
+          <th>ItemID</th>
+
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-l>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{l.DrinkerID}}</td>
+          <td>{{l.ItemID}}</td>
+
 
 
         </tr>
@@ -223,21 +233,23 @@
   <div >
     <h1>Operations</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allops"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>BarLicense</th>
+          <th>Day</th>
+          <th>OpenTime</th>
+          <th>CloseTime</th>
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-o>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{o.BarLicense}}</td>
+          <td>{{o.Day}}</td>
+          <td>{{o.OpenTime}}</td>
+          <td>{{o.CloseTime}}</td>
 
 
         </tr>
@@ -250,21 +262,25 @@
   <div >
     <h1>Works</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allworks"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
+          <th>BarLicense</th>
+          <th>BartenderID</th>
+          <th>Day</th>
+          <th>Start</th>
+          <th>Close</th>
 
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-w>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{w.BarLicense}}</td>
+          <td>{{w.BartenderID}}</td>
+          <td>{{w.Day}}</td>
+          <td>{{w.Start}}</td>
+          <td>{{w.Close}}</td>
 
 
         </tr>
@@ -278,21 +294,22 @@
   <div >
     <h1>SellsTable</h1>
 
-    <p-table [value]=""[paginator]="true" [rows]="10">
+    <p-table [value]="allsells"[paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>barName</th>
-
+          <th>BarLicense</th>
+          <th>ItemID</th>
+          <th>Quantity</th>
+          <th>Price</th>
 
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-bar>
+      <ng-template pTemplate="body" let-s>
         <tr>
-          <td>
-            <a routerLink="/bars/{{ bar.BarName }}">
-              {{ bar.BarName }}
-            </a>
-          </td>
+          <td>{{s.BarLicense}}</td>
+          <td>{{s.ItemID}}</td>
+          <td>{{s.Quantity}}</td>
+          <td>{{s.Price}}</td>
 
 
         </tr>

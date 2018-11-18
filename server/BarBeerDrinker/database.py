@@ -6,6 +6,42 @@ from BarBeerDrinker import config
 
 engine = create_engine(config.database_uri)
 
+
+def get_SellsTable():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from SellsTable;")
+        results= [dict(row) for row in rs]
+        return results
+def get_works():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from Works;")
+        results= [dict(row) for row in rs]
+        return results
+
+def get_ops():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from Operations;")
+        results= [dict(row) for row in rs]
+        return results
+def get_Likes():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from LikesTable;")
+        results= [dict(row) for row in rs]
+        return results
+
+def get_Freq():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from FrequentTable;")
+        results= [dict(row) for row in rs]
+        return results
+def get_allBills():
+    with engine.connect() as con:
+        rs = con.execute("SELECT * from BillTable;")
+        results= [dict(row) for row in rs]
+        for r in results:
+                r['Time'] = str(r['Time'])
+                r['DateTime'] = str(r['DateTime'])
+        return results
 def get_allItems():
     with engine.connect() as con:
         rs = con.execute("SELECT * from ItemsTable;")

@@ -9,6 +9,30 @@ from BarBeerDrinker import database
 app = Flask(__name__)
 
 
+@app.route('/api/get_SellsTable', methods=["GET"])
+def get_SellsTable():
+    return jsonify(database.get_SellsTable())
+
+@app.route('/api/get_works', methods=["GET"])
+def get_works():
+    return jsonify(database.get_works())
+
+@app.route('/api/get_ops', methods=["GET"])
+def get_ops():
+    return jsonify(database.get_ops())
+
+@app.route('/api/get_Likes', methods=["GET"])
+def get_Likes():
+    return jsonify(database.get_Likes())
+
+@app.route('/api/get_Freq', methods=["GET"])
+def get_Freq():
+    return jsonify(database.get_Freq())
+
+@app.route('/api/get_Bills', methods=["GET"])
+def get_allBills():
+    return jsonify(database.get_allBills())
+
 @app.route('/api/get_Items', methods=["GET"])
 def get_allItems():
     return jsonify(database.get_allItems())

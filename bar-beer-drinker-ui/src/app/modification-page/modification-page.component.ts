@@ -17,6 +17,12 @@ export class ModificationPageComponent implements OnInit {
   allDrinkers:any[];
   allItems:any[];
   allBartenders:any[];
+  allBills:any[];
+  allFreq:any[]
+  allLikes:any[];
+  allops:any[];
+  allworks:any[];
+  allsells:any[];
 
 
 
@@ -51,6 +57,42 @@ export class ModificationPageComponent implements OnInit {
     this.barService.getBartenders().subscribe(
       data => {
         this.allBartenders = data;
+
+      }
+    );
+    this.transService.getBills().subscribe(
+      data => {
+        this.allBills= data;
+
+      }
+    );
+    this.transService.getFreq().subscribe(
+      data => {
+        this.allFreq= data;
+
+      }
+    );
+    this.transService.getLikes().subscribe(
+      data => {
+        this.allLikes= data;
+
+      }
+    );
+    this.transService.getops().subscribe(
+      data => {
+        this.allops= data;
+
+      }
+    );
+    this.transService.getworks().subscribe(
+      data => {
+        this.allworks= data;
+
+      }
+    );
+    this.transService.getsells().subscribe(
+      data => {
+        this.allsells= data;
 
       }
     );
