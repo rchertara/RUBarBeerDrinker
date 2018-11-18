@@ -51,11 +51,24 @@ export class BarsService {
     console.log(day);
     return this.http.get<any[]>('/api/bars5/'+beerName+'/'+day);
   }
+  getBartenderPageQury1(bartenderName:string,bar:string) {
+    console.log(bartenderName);
+    console.log(bar);
+    return this.http.get<any[]>('/api/bartender1/'+bar+'/'+bartenderName);
+  }
+  getBartenderPageQury2(bar:string,shift:string,day:string) {
+    console.log(shift);
+    console.log(bar);
+    console.log(day);
+    var shifts = shift.split("|", 2);
+    return this.http.get<any[]>('/api/bartender2/'+bar+'/'+shifts[0]+'/'+shifts[1]+'/'+day);
+  }
+
 
 
 
   getBars() {
-    return this.http.get<Bar[]>('/api/bar');
+    return this.http.get<any[]>('/api/bar');
   }
 
   getBar(bar: string) {
@@ -63,6 +76,9 @@ export class BarsService {
   }
   getBartenders() {
     return this.http.get<any[]>('/api/bartender_page');
+  }
+  getBartenderShifts() {
+    return this.http.get<any[]>('/api/bartender_pageShifts');
   }
 
   getMenu(bar: string) {
@@ -82,5 +98,6 @@ export class BarsService {
   getStatesLikesManf(manf:string) { //
     return this.http.get<BeerLocation[]>('/api/manufacturer_pageLikesStates/'+manf);
   }
+
 
 }

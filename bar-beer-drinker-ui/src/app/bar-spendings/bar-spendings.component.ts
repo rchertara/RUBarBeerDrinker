@@ -16,34 +16,33 @@ declare const Highcharts: any;
 
 
 export class BarSpendingsComponent implements OnInit {
-  barName:string;
+  barName: string;
   thi
 
-  constructor(private barService:BarsService,
-              private transService:TransactionsService,
+  constructor(private barService: BarsService,
+              private transService: TransactionsService,
               private route: ActivatedRoute) {
     this.route.paramMap.subscribe((paramMap) => {
 
-      this.barName=paramMap.get('barName');
+      this.barName = paramMap.get('barName');
 
 
+      this.transService.getDrinkerPageQury3(this.barName)
+        .subscribe(
+          data => {
+            console.log(data);
 
-    this.transService.getDrinkerPageQury3(this.barName)
-      .subscribe(
-        data => {
-          console.log(data);
+            const dates = [];
+            const total = [];
 
-          const dates = [];
-          const total = [];
+            data.forEach(value => {
+              dates.push(value.Date);
+              total.push(value.Total);
+            });
 
-          data.forEach(value=> {
-            dates.push(value.Date);
-            total.push(value.Total);
-          });
-
-          this.renderChart(total,dates );
-        }
-      );
+            this.renderChart(total, dates);
+          }
+        );
       this.transService.getDrinkerPageQury3Weeks(this.barName)
         .subscribe(
           data => {
@@ -52,12 +51,12 @@ export class BarSpendingsComponent implements OnInit {
             const dates = [];
             const total = [];
 
-            data.forEach(value=> {
+            data.forEach(value => {
               dates.push(value.Week);
               total.push(value.Total);
             });
 
-            this.renderChart2(total,dates );
+            this.renderChart2(total, dates);
           }
         );
       this.transService.getDrinkerPageQury3Months(this.barName)
@@ -68,16 +67,17 @@ export class BarSpendingsComponent implements OnInit {
             const dates = [];
             const total = [];
 
-            data.forEach(value=> {
+            data.forEach(value => {
               dates.push(value.Month);
               total.push(value.Total);
             });
 
-            this.renderChart3(total,dates );
+            this.renderChart3(total, dates);
           }
         );
 
-  });}
+    });
+  }
 
   ngOnInit() {
   }
@@ -123,6 +123,7 @@ export class BarSpendingsComponent implements OnInit {
       }]
     });
   }
+
   renderChart2(quantity: number[], name: string[]) {
     Highcharts.chart('bargraph2', {
       chart: {
@@ -177,7 +178,7 @@ export class BarSpendingsComponent implements OnInit {
       xAxis: {
         categories: name,
         title: {
-          text: 'month'
+          text: 'Month Number (i.e Jan=1 Feb=2 ..etc)'
         }
       },
       yAxis: {
@@ -208,4 +209,5 @@ export class BarSpendingsComponent implements OnInit {
     });
 
 
+  }
 }

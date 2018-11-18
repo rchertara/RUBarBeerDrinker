@@ -15,6 +15,7 @@ import { ModificationPageComponent} from './modification-page/modification-page.
 import { DrinkerDetailsComponent } from './drinker-details/drinker-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
+import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
 
 
 const routes: Routes = [
@@ -86,7 +87,7 @@ const routes: Routes = [
   {
     path: 'bartender_page/:bartender',
     pathMatch:  'full',
-    component: BartenderPageComponent //
+    component: BartenderDetailsComponent //
   },
   {
     path: 'manufacturer_page',

@@ -23,6 +23,7 @@ import { DrinkerDetailsComponent } from './drinker-details/drinker-details.compo
 import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-detail.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
+import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
     DrinkerDetailsComponent,
     TransactionsDetailsComponent,
     BarSpendingsComponent,
+    BartenderDetailsComponent,
 
   ],
   imports: [

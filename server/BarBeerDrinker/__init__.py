@@ -103,6 +103,28 @@ def get_barPageQury5(beerName,day):
         return jsonify(database.get_barPageQury5(beerName,day))
     except Exception as e:
         return make_response(str(e), 500)
+@app.route('/api/bartender1/<bar>/<bartender>',methods=['GET']) #bar
+def get_bartenderPageQury1(bar,bartender):
+    try:
+        return jsonify(database.get_bartenderPageQury1(bar,bartender))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bartender_pageShifts',methods=['GET']) #bar
+def get_bartenderPageShift():
+    try:
+        return jsonify(database.get_bartendersShifts())
+    except Exception as e:
+        return make_response(str(e), 500)
+
+         #return this.http.get<any[]>('/api/bartender2/'+bar+'/'+shifts[0]+'/'+shifts[1]+'/'+day);
+
+@app.route('/api/bartender2/<bar>/<Start>/<Close>/<day>',methods=['GET']) #bar
+def get_bartenderPageQury2(bar,Start,Close,day):
+    try:
+        return jsonify(database.get_bartenderPageQury2(bar,Start,Close,day))
+    except Exception as e:
+        return make_response(str(e), 500)
 
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):

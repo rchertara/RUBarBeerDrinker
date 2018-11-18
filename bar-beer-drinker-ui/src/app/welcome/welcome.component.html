@@ -31,15 +31,20 @@
 
 <br><br>
 
-<div>
+<div class="container">
+  <span class="font-weight-light result-count">*Please Click on a beer other than first one,only for first search * </span>
   <p-dropdown class="text-left"[options]="beerOptions" (onChange)="selectBeerBrand(($event.value))"></p-dropdown>
 </div>
 
-<div>
+<br>
+
+<div class="container">
+  <span class="font-weight-light result-count">*Please Click on a Day* </span>
   <p-dropdown class="text-left" [options]="dayOptions" (onChange)="selectDay(($event.value))" ></p-dropdown>
 </div>
+<br>
 
-<div>
+<div class="container">
   <p-button label="Search For Top Bars for this beer and day" (onClick)="doBarPageQury5()"></p-button>
 </div>
 
@@ -62,8 +67,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-bar>
       <tr>
-        <td>{{ bar.BarLicense }}</td>
-        <td>{{ bar.Price }}</td>
+        <td>{{ bar.BarName }}</td>
+        <td>{{ bar.finalQ }}</td>
 
       </tr>
     </ng-template>

@@ -14,6 +14,10 @@ def get_bartenders():
     with engine.connect() as con:
         rs = con.execute("SELECT BartenderName from BartenderTable;")
         return [dict(row) for row in rs]
+def get_bartendersShifts():
+    with engine.connect() as con:
+        rs = con.execute("SELECT distinct Start,Close from Works")
+        return [dict(row) for row in rs]
 
 def getBeerTime(beer):
     with engine.connect() as con:
@@ -132,7 +136,7 @@ def get_bar_frequent_counts(): #this is fake insights graph
 def get_drinkerPageGraph(name): #this is for drinker page second qury 
     with engine.connect() as con:
         query = sql.text('select name,Quantity from ItemsTable i, TransactionTable t, DrinkerTable d \
-        where i.ItemID=t.ItemID AND d.DrinkerName=:name AND d.drinkerID=t.drinkerID limit 10;')
+        where i.ItemID=t.ItemID AND d.DrinkerName=:name AND d.drinkerID=t.drinkerID and i.Flag="B" limit 10;')
         rs = con.execute(query,name=name)
         results = [dict(row) for row in rs]
         for r in results:
@@ -197,10 +201,28 @@ def get_barPageQury4(barName):
                 else:
                         r['Quantity']=0
         return results
+
 def get_barPageQury5(beerName,day):
      with engine.connect() as con:
-        query = sql.text("select * from SellsTable limit 10 ")
+        query = sql.text("(select BarName, q2.finalQ from BarTable b2, \
+        (select BarLicense, SUM(Total) as finalQ from TransactionTable t1, \
+        (select b.TransactionID as TID, t.ItemID as IID from ItemsTable i, TransactionTable t, BillTable b \
+        where i.name=:beerName AND i.ItemID=t.ItemID AND t.TransactionID=b.TransactionID AND dayname(b.Date)=:day) q \
+        where q.TID=t1.TransactionID AND t1.ItemID=q.IID group by BarLicense order by finalQ) q2 \
+        where b2.BarLicense=q2.BarLicense) limit 10 ")
         rs = con.execute(query,beerName=beerName,day=day)
+        results = [dict(row) for row in rs]
+        return results
+def get_bartenderPageQury1(bar,tender):
+     with engine.connect() as con:
+        query = sql.text("select * from Works")
+        rs = con.execute(query,bar=bar,tender=tender)
+        results = [dict(row) for row in rs]
+        return results
+def get_bartenderPageQury2(bar,StartTime,CloseTime,Day):
+     with engine.connect() as con:
+        query = sql.text("select Start,Close from Works where Start=:StartTime and Close=:CloseTime")
+        rs = con.execute(query,bar=bar,StartTime=StartTime,CloseTime=CloseTime,Day=Day)
         results = [dict(row) for row in rs]
         return results
 
@@ -256,7 +278,7 @@ def get_manfPageQury1(manfName):
         return results
 def get_manfPageQuryStates(manfName): #check this one for sure!!!! this shit is wrong 
   with engine.connect() as con:
-        query = sql.text('select City, State, q3.finalQ from BarTable b2, \
+        query = sql.text('select City, State, q3.finalQ as final from BarTable b2, \
         (select BarLicense, SUM(Quantity) as finalQ from TransactionTable t1, \
         (select q1.TransactionID as TID from BillTable b, \
         (select TransactionID from TransactionTable t, \
@@ -268,6 +290,8 @@ def get_manfPageQuryStates(manfName): #check this one for sure!!!! this shit is 
         where b2.BarLicense=q3.BarLicense limit 10;')
         rs = con.execute(query,manfName=manfName)
         results = [dict(row) for row in rs]
+        for r in results:
+            r['Sales'] = float(r['Sales'])
         return results
 
 

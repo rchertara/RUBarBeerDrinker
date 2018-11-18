@@ -33,8 +33,14 @@ export class WelcomeComponent implements OnInit {
   ) {
     this.getBars();
 
+
+    //publicDeals: Deal[] = [];
+     this.beerOptions=[];
+
+
     this.beerService.getBeers().subscribe(
       data => {
+
         this.beerOptions= data.map(name=> {
           return {
             label: name.name,
@@ -46,10 +52,26 @@ export class WelcomeComponent implements OnInit {
         alert('Could not retrieve a list of bars');
       }
     );
+    //TheArray.unshift(TheNewObject);
+
+
+
+    const hate:SelectItem={'label':'N/A','value':'N/A'};
+    this.beerOptions.unshift(hate);
+
+
+    this.barService.getBarPageQuery5('null','null').subscribe( data => {
+
+        this.beerFromThisDay=data;
+      })
 
 
 
     this.dayOptions=[
+      {
+        'label':'N/A',
+        'value':'N/A'
+      },
       {
         'label':'Monday',
         'value':'Monday'

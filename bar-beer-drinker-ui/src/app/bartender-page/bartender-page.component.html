@@ -1,8 +1,9 @@
+<!--
 <div class="container">
   <br>
   <span class="font-weight-light result-count">All Bartenders</span>
   <br>
-  <p-table [value]="allBartenders" sortMode="multiple" sortField="price">
+  <p-table [value]="allBartenders" sortMode="multiple" sortField="price" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
       <tr>
 
@@ -11,10 +12,120 @@
     </ng-template>
     <ng-template pTemplate="body" let-b>
       <tr>
-        <td><a routerLink="/bartender-details/{{ b.BartenderName}}">{{b.BartenderName}}</a></td>
+        <td><a routerLink="/bartender_page/{{ b.BartenderName}}">{{b.BartenderName}}</a></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+-->
+<div  class="container">
+  <span class="font-weight-light result-count">*Please Click on a Bar other than first one,only for first search * </span>
+  <p-dropdown class="text-left"[options]="barOp" (onChange)="selectBar(($event.value))" ></p-dropdown>
+</div >
+
+<br>
+
+<div class="container">
+  <span class="font-weight-light result-count">*Please Click on a Bartender other than first one,only for first search * </span>
+  <p-dropdown class="text-left" [options]="bartenderOptions " (onChange)="selectBartender(($event.value))"></p-dropdown>
+</div>
+
+<br>
+<div class="container">
+  <p-button label="Search this Bartender's Shifts for this Bar" (onClick)="doBartenderPageQury1()"></p-button>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+  <p-table [value]="bartenderShiftsForBar"[paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Past Shift</th>
+        <th>Number of beers sold for this brand</th>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-shift>
+      <tr>
+        <td>
+         {{ shift.Start }}|{{ shift.Close }}
+
+
+        </td>
+
+        <td>
+          {{ shift.BarLicense}}
+        </td>
+
+
       </tr>
     </ng-template>
   </p-table>
 </div>
 
+
+
+
+
+<br>
+<br>
+
+<div class="container">
+<span class="font-weight-light result-count">*Please Click on a Bar other than first one,only for first search * </span>
+<p-dropdown class="text-left"[options]="barOp" (onChange)="selectBar(($event.value))" ></p-dropdown>
+</div>
+
+<br>
+
+<div class="container">
+  <span class="font-weight-light result-count">*Please Click on a Bartender Shift other than first one,only for first search * </span>
+  <p-dropdown class="text-left" [options]="bartenderShiftsOptions" (onChange)="selectBartenderShift(($event.value))"></p-dropdown>
+</div>
+
+<br>
+<div class="container">
+  <span class="font-weight-light result-count">*Please Click on a Day of Week  </span>
+  <p-dropdown class="text-left" [options]="dayOfTheWeek" (onChange)="selectDay(($event.value))" ></p-dropdown>
+</div>
+
+<br>
+<div class="container">
+  <p-button label="Return Rankings" (onClick)="doBartenderPageQury2()"></p-button>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+
+  <p-table [value]=""[paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Bartender Name</th>
+        <th>Total Number of beers sold </th>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-shift>
+      <tr>
+        <td>
+
+
+
+        </td>
+
+        <td>
+
+        </td>
+
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
 
