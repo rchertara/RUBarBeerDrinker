@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {BeerLocation, BeersService} from '../beers.service';
+import {ActivatedRoute} from '@angular/router';
+import {SelectItem} from 'primeng/api';
+import {BarsService} from '../bars.service';
+import {ButtonModule} from 'primeng/button';
+import {TransactionsService} from '../transactions.service';
 
 @Component({
   selector: 'app-modification-page',
@@ -7,7 +13,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModificationPageComponent implements OnInit {
 
-  constructor() { }
+  allBars:any[];
+  allDrinkers:any[]
+
+
+  allBeers:any[];
+
+  constructor(private beerService: BeersService,
+              private barService: BarsService,
+              private transService:TransactionsService,
+              private route: ActivatedRoute) {
+
+
+
+    this.transService.getTransactions().subscribe(
+      data => {
+        this.allDrinkers = data;
+
+      }
+    );
+
+  }
 
   ngOnInit() {
   }

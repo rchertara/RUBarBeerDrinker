@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,7 +56,9 @@ import { BartenderDetailsComponent } from './bartender-details/bartender-details
     DropdownModule,
     ButtonModule,
     TableModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InputTextModule,
+    InputTextareaModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

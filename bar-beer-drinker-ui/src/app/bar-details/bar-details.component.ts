@@ -22,7 +22,7 @@ export class BarDetailsComponent implements OnInit {
   menu: BarMenuItem[];
 
   dayOptions:SelectItem[];
-
+  beerOptions:SelectItem[];
   constructor(
     private barService: BarsService,
     private route: ActivatedRoute

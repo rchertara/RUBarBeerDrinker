@@ -34,7 +34,7 @@ def getBeerTime(beer):
 
 def get_allDrinkers():
     with engine.connect() as con:
-        rs = con.execute("SELECT DrinkerName from DrinkerTable;")
+        rs = con.execute("SELECT * from DrinkerTable;")#made change now i select all fields instead of drinkerName
         return [dict(row) for row in rs]
 def get_drinkerOrders(drinker,tid):
     with engine.connect() as con:
@@ -215,7 +215,14 @@ def get_barPageQury5(beerName,day):
         return results
 def get_bartenderPageQury1(bar,tender):
      with engine.connect() as con:
-        query = sql.text("select * from Works")
+        query = sql.text("select q1.Start as Start, q1.Close as Close, i.name as Name, q1.finalQ as finalQ from ItemsTable i, \
+        (select b1.DateTime, w.Start as Start, w.Close as CLose, t2.ItemID as ItemID, SUM(Quantity) as finalQ from Works w, BillTable b1, TransactionTable t2, \
+        (select t.TransactionID as TID, t.BartenderID as BID from BartenderTable b, BarTable b1, TransactionTable t \
+        where b.BartenderName=:tender AND b.BartenderID=t.BartenderID AND b1.BarName=:bar \
+        AND b1.BarLicense=t.BarLicense) q \
+        where q.TID=b1.TransactionID AND dayname(b1.Date)=w.Day AND b1.DateTime < now() AND w.BartenderID=q.BID \
+        AND w.Start<=b1.Time AND w.Close >= b1.Time AND b1.TransactionID=t2.TransactionID group by t2.ItemID order by finalQ) q1 \
+        where i.ItemID=q1.ItemID AND i.Flag='B';")
         rs = con.execute(query,bar=bar,tender=tender)
         results = [dict(row) for row in rs]
         return results
@@ -278,15 +285,15 @@ def get_manfPageQury1(manfName):
         return results
 def get_manfPageQuryStates(manfName): #check this one for sure!!!! this shit is wrong 
   with engine.connect() as con:
-        query = sql.text('select City, State, q3.finalQ as final from BarTable b2, \
-        (select BarLicense, SUM(Quantity) as finalQ from TransactionTable t1, \
+        query = sql.text('select City, State, q3.finalQ as Sales from BarTable b2, \
+        (select BarLicense, SUM(Quantity) as finalQ from TransactionTable t1, ItemsTable i2, \
         (select q1.TransactionID as TID from BillTable b, \
-        (select TransactionID from TransactionTable t, \
+        (select TransactionID, q.DrinkerID, q.ItemID from TransactionTable t, \
         (select DrinkerID, i.ItemID as ItemID from ItemsTable i, LikesTable l \
         where i.Manf=:manfName AND i.ItemID=l.ItemID) q \
         where t.DrinkerID=q.DrinkerID AND t.ItemID=q.ItemID) q1 \
         where b.TransactionID=q1.TransactionID and b.Date between adddate(now(),-7) and now()) q2 \
-        where t1.TransactionID=q2.TID group by BarLicense order by finalQ) q3 \
+        where t1.TransactionID=q2.TID AND i2.Manf=:manfName AND i2.ItemID=t1.ItemID group by BarLicense order by finalQ) q3 \
         where b2.BarLicense=q3.BarLicense limit 10;')
         rs = con.execute(query,manfName=manfName)
         results = [dict(row) for row in rs]

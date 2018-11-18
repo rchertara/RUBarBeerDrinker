@@ -44,6 +44,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th>Past Shift</th>
+        <th>Beer Brand</th>
         <th>Number of beers sold for this brand</th>
 
 
@@ -54,6 +55,9 @@
         <td>
          {{ shift.Start }}|{{ shift.Close }}
 
+        </td>
+        <td>
+          {{ shift.name }}
 
         </td>
 

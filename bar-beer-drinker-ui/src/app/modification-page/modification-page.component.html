@@ -1,3 +1,326 @@
-<p>
-  modification-page works!
-</p>
+<div class="container">
+
+  <h2>Enter a SQL query within a box provided under a table to add, edit, or delete a row from that table</h2>
+  <br>
+
+
+  <div >
+    <h1>BarTable</h1>
+
+    <p-table [value]="allBars"[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>BarName</th>
+          <th>BarLicense</th>
+          <th>State</th>
+          <th>City</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+              {{ bar.BarName }}
+          </td>
+          <td>
+            {{ bar.BarLicense }}
+          </td>
+          <td>
+            {{ bar.City }}
+          </td>
+          <td>
+            {{ bar.State }}
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+
+  </div>
+
+  <br>
+
+  <div >
+    <h1>DrinkerTable</h1>
+
+    <p-table [value]="allDrinkers"[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>DrinkerName</th>
+          <th>DrinkerID</th>
+          <th>State</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-d>
+        <tr>
+          <td>
+          {{d.DrinkerName}}
+          </td>
+          <td>
+            {{d.DrinkerID}}
+          </td>
+          <td>
+            {{d.State}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>ItemsTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>BartenderTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+  <br>
+
+  <div >
+    <h1>BillTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+  <div >
+    <h1>FrequentTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>LikesTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>Operations</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+  <div >
+    <h1>Works</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>SellsTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+  <br>
+
+  <div >
+    <h1>TransactionTable</h1>
+
+    <p-table [value]=""[paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>barName</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.BarName }}">
+              {{ bar.BarName }}
+            </a>
+          </td>
+
+
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea pInputTextarea autoResize="autoResize"></textarea>
+  </div>
+
+
+  <br>
+
+
+</div>
