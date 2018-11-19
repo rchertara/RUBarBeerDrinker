@@ -80,6 +80,9 @@ export class BarsService {
   getBartenderShifts() {
     return this.http.get<any[]>('/api/bartender_pageShifts');
   }
+  getBartenderForABar(barName:string) {
+    return this.http.get<any[]>('/api/bartender_pageShifts1/'+barName);
+  }
 
   getMenu(bar: string) {
     return this.http.get<BarMenuItem[]>('/api/menu/' + bar);

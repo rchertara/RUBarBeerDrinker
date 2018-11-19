@@ -55,7 +55,20 @@ export class BartenderPageComponent implements OnInit {
           alert('Could not retrieve a list of bars');
         }
       );
-      this.barService.getBartenders().subscribe(
+      // this.barService.getBartenders().subscribe(
+      //   data => {
+      //     this.bartenderOptions= data.map(name=> {
+      //       return {
+      //         label: name.BartenderName,
+      //         value: name.BartenderName,
+      //       };
+      //     });
+      //   },
+      //   error => {
+      //     alert('Could not retrieve a list of bartenders');
+      //   }
+      // );
+      this.barService.getBartenderForABar(this.bar).subscribe(
         data => {
           this.bartenderOptions= data.map(name=> {
             return {
@@ -135,6 +148,15 @@ export class BartenderPageComponent implements OnInit {
   selectBar(selectedOption:string){
     this.bar=selectedOption;
     console.log(this.bar);
+    this.barService.getBartenderForABar(this.bar).subscribe(
+      data => {
+        this.bartenderOptions= data.map(name=> {
+          return {
+            label: name.BartenderName,
+            value: name.BartenderName,
+          };
+        });
+      },)
   }
 
 
