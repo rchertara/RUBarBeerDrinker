@@ -183,6 +183,10 @@ export class BartenderPageComponent implements OnInit {
   }
 
   doBartenderPageQury2(){
+    console.log(this.bar);
+    console.log(this.shiftName);
+    console.log(this.dayName);
+
     this.barService.getBartenderPageQury2(this.bar,this.shiftName,this.dayName).subscribe(
       data => {
         this.bartenderRankings=data;

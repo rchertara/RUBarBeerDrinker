@@ -5,6 +5,13 @@ import {SelectItem} from 'primeng/api';
 import {BarsService} from '../bars.service';
 import {ButtonModule} from 'primeng/button';
 import {TransactionsService} from '../transactions.service';
+import {ToastModule} from 'primeng/toast';
+
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {HttpResponse} from '@angular/common/http';
+import {reject} from 'q';
+
 
 @Component({
   selector: 'app-modification-page',
@@ -24,6 +31,8 @@ export class ModificationPageComponent implements OnInit {
   allworks:any[];
   allsells:any[];
   allTrans:any[];
+
+  msgs:MessageModule[];
 
 
 
@@ -109,5 +118,46 @@ export class ModificationPageComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  exeQuery(query:string){
+    console.log(query);
+    this.transService.postQuery(query).subscribe(
+      data=>{
+        var response:string=data.toString()
+        if(response==='Change has been successful'){
+          this.show();
+        }
+        else{
+          this.msgs=[];
+          var m:MessageModule={severity:'error', summary:'Error Message', detail:data.toString()}
+          this.msgs.push(m);
+        }
+
+      }
+    //  (error: HttpResponse<any>) => {
+    //   if (error.status) {
+    //
+    //    // alert('Bar not found');
+    //     this.reject()
+    //   } else {
+    //    // console.error(error.status + ' - ' + error.body);
+    //    // alert('An error occurred on the server. Please check the browser console.');
+    //     this.reject()
+    //   }
+    // }
+    );
+  }
+  show() {
+    this.msgs=[];
+    var m:MessageModule={severity:'success', summary:'Service Message', detail:'Query has been accepted'}
+    this.msgs.push(m);
+  }
+  reject() {
+    this.msgs=[];
+    var m:MessageModule={severity:'error', summary:'Error Message', detail:''}
+    this.msgs.push(m);
+  }
+
+
 
 }

@@ -8,6 +8,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ToastModule} from 'primeng/toast';
+
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,7 +63,11 @@ import { BartenderDetailsComponent } from './bartender-details/bartender-details
     TableModule,
     AppRoutingModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ToastModule,
+
+    MessageModule,
+    MessagesModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
