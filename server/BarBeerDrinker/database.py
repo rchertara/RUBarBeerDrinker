@@ -62,7 +62,12 @@ def get_bartenders():
 def get_bartendersShifts():
     with engine.connect() as con:
         rs = con.execute("SELECT distinct Start,Close from Works")
-        return [dict(row) for row in rs]
+        results= [dict(row) for row in rs]
+        for r in results:
+                r['Start'] = str(r['Start'])
+                r['Close'] = str(r['Close'])
+        return results
+        
 
 def getBeerTime(beer):
     with engine.connect() as con:
@@ -239,9 +244,20 @@ def get_barPageQury3b(barName):#i think this is wrong
         return results
 def get_barPageQury4(barName):
      with engine.connect() as con:
-        query = sql.text("select * from BarTable limit 10")
+        query = sql.text("select q2.Day as Day,(q2.finalQ/(q4.finalQ3+q2.finalQ)) as fraction from \
+        (select SUM(q.finalQ2) as finalQ3 from \
+        (select s.BarLicense, s.ItemID, Quantity as finalQ2 from SellsTable s, \
+        (select b.BarLicense as BarLicense, i.ItemID from BarTable b, TransactionTable t2, ItemsTable i \
+        where b.BarName='Rahil Pub' and b.BarLicense=t2.BarLicense and t2.ItemID=i.ItemID and i.Flag='B' order by ItemID) b5 \
+        where s.BarLicense=b5.BarLicense AND s.ItemID=b5.ItemID) q) q4, \
+        (select dayname(b1.Date) as Day, t1.TransactionID, SUM(Quantity) as finalQ from ItemsTable i, TransactionTable t1, BillTable b1, \
+        (select TransactionID, ItemID from BarTable b, TransactionTable t  where b.BarName='Rahil Pub' AND b.BarLicense=t.BarLicense) q \
+        where q.ItemID=i.ItemID AND i.Flag='B' AND b1.TransactionID=q.TransactionID \
+        AND (b1.Date between adddate(now(),-7) and now()) group by day(b1.Date)) q2;")
         rs = con.execute(query,barName=barName)
         results = [dict(row) for row in rs]
+        for r in results:
+                r['fraction']=float(r['fraction'])
         return results
 
 def get_barPageQury5(beerName,day):

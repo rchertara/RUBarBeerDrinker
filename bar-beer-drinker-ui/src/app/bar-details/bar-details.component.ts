@@ -110,10 +110,10 @@ export class BarDetailsComponent implements OnInit {
         const names = [];
         const quantity = [];
 
-        // data.forEach(Name=> {
-        //   quantity.push(Name.theCount);
-        //   names.push(Name.theWeek);
-        // });
+        data.forEach(Name=> {
+          quantity.push(Name.fraction);
+          names.push(Name.Day);
+        });
 
         this.renderChart4(quantity, names);
       })

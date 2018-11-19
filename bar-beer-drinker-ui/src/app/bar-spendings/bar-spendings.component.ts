@@ -17,8 +17,6 @@ declare const Highcharts: any;
 
 export class BarSpendingsComponent implements OnInit {
   barName: string;
-  thi
-
   constructor(private barService: BarsService,
               private transService: TransactionsService,
               private route: ActivatedRoute) {

@@ -21,6 +21,7 @@ import { BartenderDetailsComponent } from './bartender-details/bartender-details
 const routes: Routes = [
   {
     path: '',
+   // path: 'static',
     pathMatch: 'full',
     redirectTo: 'bars'
   },
