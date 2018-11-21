@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h1>We have provided all queries to validate patterns you can copy each one and paste them into query box, they should all return true</h1>
+  <br>
+  <br>
+
+  <h5>Transactions/bills cannot be issued at times when the given bar is closed:</h5>
+  <h6 style="color:forestgreen;"></h6>
+
+  <br>
+  <h5>Drinkers cannot frequent bars in different state that they live:</h5>
+  <h6 style="color:forestgreen;"> select d.DrinkerID from DrinkerTable d, BarTable b, FrequentTable f
+    where f.DrinkerID = d.DrinkerID AND f.BarLicense = b.BarLicense AND d.State<>b.State</h6>
+  <br>
+  <h5>For every two beers, b1 and b2, different bars may charge differently for b1 and b2 but b1 should either be less expensive than b2 in ALL bars or more expensive than b2 in ALL bars.
+    Cannot be the case that in one bar Corona is more expensive than Bud and in another Bud is more expensive than Corona.  But Corona may be more expensive than Bud in one bar, and have the same price as Bud in another:</h5>
+  <h6 style="color:forestgreen;"></h6>
+  <br>
+  <h5> Bar cannot sell more beers of specific brand, than it has in its inventory:</h5>
+  <h6 style="color:forestgreen;">select BarLicense, q1.finalQ, Quantity from
+  (select s.BarLicense as BarLicense, q.ItemID, finalQ, Quantity from SellsTable s,
+  (select t.ItemID as ItemID,BarLicense, SUM(Quantity) as finalQ from TransactionTable t
+  group by BarLicense, ItemID) q
+  where s.BarLicense=q.BarLicense AND q.ItemID=s.ItemID) q1
+    where q1.finalQ > q1.Quantity;</h6>
+  <br>
+  <h5>A bartender cannot work more  than one shift a day:</h5>
+ <h6 style="color:forestgreen;"> select q.counter from (select w.BartenderID, w.Day, COUNT(*) as counter from Works w
+   group by BartenderID,Day) q where counter>1</h6>
+
+  <textarea #queryBox [rows]="10" [cols]="50" pInputTextarea autoResize="autoResize"></textarea>
+  <br>
+  <p-button label="Execute Query" ></p-button>
+  <p-messages ></p-messages>
+</div>

@@ -31,6 +31,10 @@ import { ManufacturerDetailComponent } from './manufacturer-detail/manufacturer-
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
 import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
+import { VerificationComponent } from './verification/verification.component';
+
+
+
 
 
 @NgModule({
@@ -51,6 +55,7 @@ import { BartenderDetailsComponent } from './bartender-details/bartender-details
     TransactionsDetailsComponent,
     BarSpendingsComponent,
     BartenderDetailsComponent,
+    VerificationComponent,
 
   ],
   imports: [

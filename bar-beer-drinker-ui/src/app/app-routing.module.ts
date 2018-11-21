@@ -16,6 +16,8 @@ import { DrinkerDetailsComponent } from './drinker-details/drinker-details.compo
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
 import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
+import { VerificationComponent } from './verification/verification.component';
+
 
 
 const routes: Routes = [
@@ -111,11 +113,17 @@ const routes: Routes = [
     path: 'modification_page',
     pathMatch: 'full',
     component: ModificationPageComponent // modification page component
+  },
+  {
+    path: 'verification',
+    pathMatch: 'full',
+    component: VerificationComponent
   }
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
