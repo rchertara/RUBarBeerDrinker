@@ -4,17 +4,36 @@
   <br>
   <br>
 
-  <h5>Transactions/bills cannot be issued at times when the given bar is closed:</h5>
-  <h6 style="color:forestgreen;"></h6>
+  <h5>Transactions/bills cannot be issued at times when the given bar is closed:(takes 22 sec to return true)</h5>
+  <h6 style="color:forestgreen;">SELECT NOT EXISTS(
+    select b.TransactionID as TransactionID, b.Time as Time from Operation o, BillTable b, TransactionTable t
+    where t.TransactionID=b.TransactionID AND t.BarLicense=o.BarLicense AND o.Day=dayname(b.Date)
+    AND b.Time &lt;o.OpenTime or b.Time&gt; o.CloseTime AND b.DateTime &lt;o.OpenTime or b.DateTime&gt; o.CloseTime
+      );</h6>
 
   <br>
   <h5>Drinkers cannot frequent bars in different state that they live:</h5>
-  <h6 style="color:forestgreen;"> SELECT NOT E select d.DrinkerID from DrinkerTable d, BarTable b, FrequentTable f
-    where f.DrinkerID = d.DrinkerID AND f.BarLicense = b.BarLicense AND d.State<>b.State</h6>
+  <h6 style="color:forestgreen;"> SELECT NOT EXISTS(
+    select d.DrinkerID from DrinkerTable d, BarTable b, FrequentTable f
+    where f.DrinkerID = d.DrinkerID AND f.BarLicense = b.BarLicense AND d.State<>b.State
+    );</h6>
   <br>
   <h5>For every two beers, b1 and b2, different bars may charge differently for b1 and b2 but b1 should either be less expensive than b2 in ALL bars or more expensive than b2 in ALL bars.
     Cannot be the case that in one bar Corona is more expensive than Bud and in another Bud is more expensive than Corona.  But Corona may be more expensive than Bud in one bar, and have the same price as Bud in another:</h5>
-  <h6 style="color:forestgreen;"></h6>
+  <h6 style="color:forestgreen;">
+    SELECT NOT EXISTS(
+    select s1.BarLicense, s1.ItemID from
+    (select BarLicense, n.ItemID as ItemID, Price from SellsTable n, ItemsTable i
+    where i.ItemID=n.ItemID AND i.Flag='B') s1,
+    (select BarLicense, n.ItemID as ItemID, Price from SellsTable n, ItemsTable i
+    where i.ItemID=n.ItemID AND i.Flag='B') s2,
+    (select BarLicense, n.ItemID as ItemID, Price from SellsTable n, ItemsTable i
+    where i.ItemID=n.ItemID AND i.Flag='B') s3,
+    (select BarLicense, n.ItemID as ItemID, Price from SellsTable n, ItemsTable i
+    where i.ItemID=n.ItemID AND i.Flag='B') s4
+    where s1.Price > s2.Price AND s3.Price < s4.Price AND s1.BarLicense=s2.BarLicense AND s3.BarLicense=s4.BarLicense AND s1.BarLicense <> s3.BarLicense
+    AND s1.ItemID=s3.ItemID AND s2.ItemID=s4.ItemID AND s1.ItemID<>s2.ItemID
+    );</h6>
   <br>
   <h5> Bar cannot sell more beers of specific brand, than it has in its inventory:</h5>
   <h6 style="color:forestgreen;">SELECT NOT EXISTS (
@@ -27,8 +46,13 @@
     );</h6>
   <br>
   <h5>A bartender cannot work more  than one shift a day:</h5>
- <h6 style="color:forestgreen;"> select q.counter from (select w.BartenderID, w.Day, COUNT(*) as counter from Works w
-   group by BartenderID,Day) q where counter>1</h6>
+ <h6 style="color:forestgreen;">
+   SELECT NOT EXISTS(
+   select q.counter from
+   (select w.BartenderID, w.Day, COUNT(*) as counter from Works w
+   group by BartenderID,Day) q
+   where counter>1
+   );</h6>
 
   <textarea #queryBox [rows]="10" [cols]="50" pInputTextarea autoResize="autoResize"></textarea>
   <br>
