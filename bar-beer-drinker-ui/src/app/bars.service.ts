@@ -34,9 +34,9 @@ export class BarsService {
 
     return this.http.get<any[]>('/api/bars/'+barName+'/'+day);
   }
-  getBarPageQuery3a(barName:string) {
+  getBarPageQuery3a(barName:string,day:string) {
 
-    return this.http.get<any[]>('/api/bars3a/'+barName);
+    return this.http.get<any[]>('/api/bars3a/'+barName+'/'+day);
   }
   getBarPageQuery3b(barName:string) {
 

@@ -9,7 +9,7 @@
 
   <br>
   <h5>Drinkers cannot frequent bars in different state that they live:</h5>
-  <h6 style="color:forestgreen;"> select d.DrinkerID from DrinkerTable d, BarTable b, FrequentTable f
+  <h6 style="color:forestgreen;"> SELECT NOT E select d.DrinkerID from DrinkerTable d, BarTable b, FrequentTable f
     where f.DrinkerID = d.DrinkerID AND f.BarLicense = b.BarLicense AND d.State<>b.State</h6>
   <br>
   <h5>For every two beers, b1 and b2, different bars may charge differently for b1 and b2 but b1 should either be less expensive than b2 in ALL bars or more expensive than b2 in ALL bars.
@@ -17,12 +17,14 @@
   <h6 style="color:forestgreen;"></h6>
   <br>
   <h5> Bar cannot sell more beers of specific brand, than it has in its inventory:</h5>
-  <h6 style="color:forestgreen;">select BarLicense, q1.finalQ, Quantity from
-  (select s.BarLicense as BarLicense, q.ItemID, finalQ, Quantity from SellsTable s,
-  (select t.ItemID as ItemID,BarLicense, SUM(Quantity) as finalQ from TransactionTable t
-  group by BarLicense, ItemID) q
-  where s.BarLicense=q.BarLicense AND q.ItemID=s.ItemID) q1
-    where q1.finalQ > q1.Quantity;</h6>
+  <h6 style="color:forestgreen;">SELECT NOT EXISTS (
+    select BarLicense, q1.finalQ, Quantity from
+    (select s.BarLicense as BarLicense, q.ItemID, finalQ, Quantity from SellsTable s,
+    (select t.ItemID as ItemID,BarLicense, SUM(Quantity) as finalQ from TransactionTable t, ItemsTable i
+    where t.ItemID=i.ItemID AND i.Flag='B' group by BarLicense, ItemID) q
+    where s.BarLicense=q.BarLicense AND q.ItemID=s.ItemID) q1
+    where q1.finalQ > q1.Quantity
+    );</h6>
   <br>
   <h5>A bartender cannot work more  than one shift a day:</h5>
  <h6 style="color:forestgreen;"> select q.counter from (select w.BartenderID, w.Day, COUNT(*) as counter from Works w
@@ -30,6 +32,8 @@
 
   <textarea #queryBox [rows]="10" [cols]="50" pInputTextarea autoResize="autoResize"></textarea>
   <br>
-  <p-button label="Execute Query" ></p-button>
-  <p-messages ></p-messages>
+  <p-messages [(value)]="msgs"> </p-messages>
+  <p-button label="Execute Query"(onClick)="verifyQuery(queryBox.value)" ></p-button>
+
+
 </div>

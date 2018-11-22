@@ -1,7 +1,17 @@
 <div class="container">
 
   <h2>Enter a SQL insertion/deletion/update query within this box provided to add, edit, or delete a row from a table</h2>
-  <h6>All Tables are given below, make sure to add semicolon at end of query!</h6>
+  <h6 style="color:purple">All Tables are given below, make sure to add semicolon at end of query! All columns that have some letters are text or varchar,anything that has only numbers is int or double and time and Date are their respective data types</h6>
+
+  <h6 style="color:green;">INSERT INTO table_name (column1, column2, column3, ...)
+    VALUES (value1, value2, value3, ...)</h6>
+
+
+  <h6 style="color:blue;">UPDATE sometable set somecolumn ='value' where somecolumn LIKE 'othervalue'</h6>
+
+
+  <h6 style="color:red;">DELETE FROM table_name WHERE condition;</h6>
+
   <textarea #queryBox [rows]="10" [cols]="50" pInputTextarea autoResize="autoResize"></textarea>
   <p-messages [(value)]="msgs"></p-messages>
 

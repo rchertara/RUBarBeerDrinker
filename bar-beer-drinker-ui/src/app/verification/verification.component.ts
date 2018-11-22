@@ -17,6 +17,7 @@ import {reject} from 'q';
   styleUrls: ['./verification.component.css']
 })
 export class VerificationComponent implements OnInit {
+  msgs:MessageModule[];
 
   constructor(private beerService: BeersService,
               private barService: BarsService,
@@ -24,6 +25,37 @@ export class VerificationComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+  verifyQuery(query:string){
+    //console.log(query);
+    this.transService.verifyQuery(query).subscribe(
+      data=>{
+        var response:string=data.toString()
+        console.log(response)
+        if(response==='1'){
+          this.msgs=[];
+          var m:MessageModule={severity:'success', summary:'Service Message', detail:'Pattern validation is true' }
+          this.msgs.push(m);
+        }
+        else{
+          this.msgs=[];
+          var m:MessageModule={severity:'error', summary:'Error Message', detail:data.toString()}
+          this.msgs.push(m);
+        }
+
+      }
+
+    );
+  }
+  show() {
+    this.msgs=[];
+    var m:MessageModule={severity:'success', summary:'Service Message', detail:''}
+    this.msgs.push(m);
+  }
+  reject() {
+    this.msgs=[];
+    var m:MessageModule={severity:'error', summary:'Error Message', detail:''}
+    this.msgs.push(m);
   }
 
 }

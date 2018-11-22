@@ -30,6 +30,21 @@ drinker:string;
   ) { }
 
 
+
+  verifyQuery(query:string) {
+
+    const httpOptions={
+      headers: new HttpHeaders(({
+        'Content-Type':'application/json',
+        'Authorization':'my-auth-token'
+      }))
+    };
+
+    return this.http.post<any[]>('/api/verify-query',{query:query},httpOptions);
+
+  }
+
+
   postQuery(query:string) {
 
     const httpOptions={

@@ -10,6 +10,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ToastModule} from 'primeng/toast';
 
+
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 
@@ -32,6 +33,8 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
 import { BarSpendingsComponent } from './bar-spendings/bar-spendings.component';
 import { BartenderDetailsComponent } from './bartender-details/bartender-details.component';
 import { VerificationComponent } from './verification/verification.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 
 
 
@@ -56,6 +59,8 @@ import { VerificationComponent } from './verification/verification.component';
     BarSpendingsComponent,
     BartenderDetailsComponent,
     VerificationComponent,
+   // HashLocationStrategy,
+
 
   ],
   imports: [
@@ -74,7 +79,7 @@ import { VerificationComponent } from './verification/verification.component';
     MessageModule,
     MessagesModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

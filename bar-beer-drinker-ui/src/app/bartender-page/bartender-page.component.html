@@ -103,7 +103,7 @@
 
 <div class="container">
 
-  <p-table [value]=""[paginator]="true" [rows]="10">
+  <p-table [value]="bartenderRankings"[paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
       <tr>
         <th>Bartender Name</th>
@@ -112,16 +112,16 @@
 
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-shift>
+    <ng-template pTemplate="body" let-br>
       <tr>
         <td>
 
-
+        {{br.BartenderName}}
 
         </td>
 
         <td>
-
+          {{br.finalQ}}
         </td>
 
 

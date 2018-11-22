@@ -72,21 +72,21 @@ export class BarDetailsComponent implements OnInit {
         this.renderChart2(quantity, names);
       })
 
-      this.barService.getBarPageQuery3a(this.barName).subscribe( data => {
-        console.log(data);
-        const names = [];
-        const quantity = [];
-        // {
-        //   "Count": 22,
-        //   "Time": "11:03:39"
-        // },
-        data.forEach(Name=> {
-          quantity.push(Name.Count);
-          names.push(Name.Time);
-        });
-
-        this.renderChart3a(quantity, names);
-      })
+      // this.barService.getBarPageQuery3a(this.barName).subscribe( data => {
+      //   console.log(data);
+      //   const names = [];
+      //   const quantity = [];
+      //   // {
+      //   //   "Count": 22,
+      //   //   "Time": "11:03:39"
+      //   // },
+      //   data.forEach(Name=> {
+      //     quantity.push(Name.finalQ);
+      //     names.push(Name.Time);
+      //   });
+      //
+      //   this.renderChart3a(quantity, names);
+      // })
 
       this.barService.getBarPageQuery3b(this.barName).subscribe( data => {
         console.log(data);
@@ -177,6 +177,27 @@ export class BarDetailsComponent implements OnInit {
     })
 
     }
+
+  do3aQuery(selectedOption:string){
+    this.day=selectedOption;
+    console.log(this.day);
+    this.barService.getBarPageQuery3a(this.barName,this.day).subscribe( data => {
+      console.log(data);
+      const names = [];
+      const quantity = [];
+      // {
+      //   "Count": 22,
+      //   "Time": "11:03:39"
+      // },
+      data.forEach(Name=> {
+        quantity.push(Name.finalQ);
+        names.push(Name.Time);
+      });
+
+      this.renderChart3a(quantity, names);
+    })
+
+  }
 
 
 
@@ -316,7 +337,7 @@ export class BarDetailsComponent implements OnInit {
       xAxis: {
         categories: name,
         title: {
-          text: 'times'
+          text: 'Week number since Jan 1st'
         }
       },
       yAxis: {

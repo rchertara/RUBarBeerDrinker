@@ -6,7 +6,7 @@
 
 
 <div class="container">
-  <h2>This page is correct but takes over a minute to load all results please be patient</h2>
+
     <br>
     <div id="bargraph"></div>
   </div>
@@ -22,7 +22,9 @@
   <div id="bargraph2"></div>
 </div>
 
-
+<div>
+  <p-dropdown class="" [options]="dayOptions" (onChange)= "do3aQuery($event.value)"></p-dropdown>
+</div>
 <div class="container">
 
   <div id="bargraph3a"></div>
