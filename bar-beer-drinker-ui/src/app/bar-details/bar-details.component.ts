@@ -72,21 +72,23 @@ export class BarDetailsComponent implements OnInit {
         this.renderChart2(quantity, names);
       })
 
-      // this.barService.getBarPageQuery3a(this.barName).subscribe( data => {
-      //   console.log(data);
-      //   const names = [];
-      //   const quantity = [];
-      //   // {
-      //   //   "Count": 22,
-      //   //   "Time": "11:03:39"
-      //   // },
-      //   data.forEach(Name=> {
-      //     quantity.push(Name.finalQ);
-      //     names.push(Name.Time);
-      //   });
-      //
-      //   this.renderChart3a(quantity, names);
-      // })
+      this.day='Monday';
+      console.log(this.day);
+      this.barService.getBarPageQuery3a(this.barName,this.day).subscribe( data => {
+        console.log(data);
+        const names = [];
+        const quantity = [];
+        // {
+        //   "Count": 22,
+        //   "Time": "11:03:39"
+        // },
+        data.forEach(Name=> {
+          quantity.push(Name.finalQ);
+          names.push(Name.Time);
+        });
+
+        this.renderChart3a(quantity, names);
+      })
 
       this.barService.getBarPageQuery3b(this.barName).subscribe( data => {
         console.log(data);
@@ -99,12 +101,15 @@ export class BarDetailsComponent implements OnInit {
         // },
 
         data.forEach(Name=> {
-          quantity.push(Name.theCount);
-          names.push(Name.theWeek);
+          quantity.push(Name.finalQ);
+          names.push(Name.Day);
         });
 
         this.renderChart3b(quantity, names);
       })
+
+
+
       this.barService.getBarPageQuery4(this.barName).subscribe( data => { //GET BACK TO THIS
         console.log(data);
         const names = [];
@@ -178,7 +183,7 @@ export class BarDetailsComponent implements OnInit {
 
     }
 
-  do3aQuery(selectedOption:string){
+  do3Query(selectedOption:string){
     this.day=selectedOption;
     console.log(this.day);
     this.barService.getBarPageQuery3a(this.barName,this.day).subscribe( data => {
@@ -196,6 +201,26 @@ export class BarDetailsComponent implements OnInit {
 
       this.renderChart3a(quantity, names);
     })
+
+    this.barService.getBarPageQuery3b(this.barName).subscribe( data => {
+      console.log(data);
+      const names = [];
+      const quantity = [];
+      // {
+      //   "theCount": 11,
+      //   "theDay": "Saturday",
+      //   "theWeek": 12
+      // },
+
+      data.forEach(Name=> {
+        quantity.push(Name.finalQ);
+        names.push(Name.Day);
+      });
+
+      this.renderChart3b(quantity, names);
+    })
+
+
 
   }
 
@@ -337,7 +362,7 @@ export class BarDetailsComponent implements OnInit {
       xAxis: {
         categories: name,
         title: {
-          text: 'Week number since Jan 1st'
+          text: 'Days'
         }
       },
       yAxis: {
@@ -373,7 +398,7 @@ export class BarDetailsComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Fraction of inventory sold each day of week'
+        text: 'Fraction of inventory sold each day of THIS week (our real world time)'
       },
       xAxis: {
         categories: name,

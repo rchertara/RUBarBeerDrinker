@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {SelectItem} from 'primeng/api';
 import {BarsService} from '../bars.service';
 import {ButtonModule} from 'primeng/button';
+import {MessageModule} from 'primeng/message';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class BartenderPageComponent implements OnInit {
   bartenderRankings:any[];
 
   button:ButtonModule;
+
+  msgs:MessageModule[];
 
 
   constructor(
@@ -168,7 +171,15 @@ export class BartenderPageComponent implements OnInit {
   doBartenderPageQury1(){
     this.barService.getBartenderPageQury1(this.bartenderName,this.bar).subscribe(
       data => {
-      this.bartenderShiftsForBar=data;
+        var response:string=data.toString()
+        if(response.length>2){
+          this.bartenderShiftsForBar=data;
+        }
+        else{
+         // this.show()
+          alert("this combination of inputs returns nothing")
+        }
+
       })
 
   }
@@ -189,8 +200,21 @@ export class BartenderPageComponent implements OnInit {
 
     this.barService.getBartenderPageQury2(this.bar,this.shiftName,this.dayName).subscribe(
       data => {
-        this.bartenderRankings=data;
+        var response: string = data.toString()
+        if (response.length > 2) {
+          this.bartenderRankings = data;
+        }
+        else{
+          alert("this combination of inputs returns nothing")
+        }
       })
 
   }
+
+  show() {
+    this.msgs=[];
+    var m:MessageModule={severity:'service', summary:'Service Message', detail:'This combination of inputs does not return anything'}
+    this.msgs.push(m);
+  }
+
 }

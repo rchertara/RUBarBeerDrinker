@@ -11,24 +11,32 @@
     <div id="bargraph"></div>
   </div>
 
-
-
-
+<br>
 <div>
 <p-dropdown class="" [options]="dayOptions" (onChange)= "doSecondQuery($event.value)"></p-dropdown>
 </div>
+
+
+<br>
 <div class="container">
 
   <div id="bargraph2"></div>
 </div>
 
+<br>
+<h6>DropDown below shows busy times in a day and week</h6>
 <div>
-  <p-dropdown class="" [options]="dayOptions" (onChange)= "do3aQuery($event.value)"></p-dropdown>
+  <p-dropdown  class="" [options]="dayOptions" (onChange)= "do3Query($event.value)"></p-dropdown>
 </div>
+
+
+<br>
 <div class="container">
 
   <div id="bargraph3a"></div>
 </div>
+
+<br>
 
 <div class="container">
 
